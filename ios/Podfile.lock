@@ -38,10 +38,12 @@ PODS:
   - AWSPluginsCore (1.8.1):
     - Amplify (= 1.8.1)
     - AWSCore (~> 2.23.3)
-  - Flutter (1.0.0)
-  - image_picker (0.0.1):
+  - connectivity (0.0.1):
     - Flutter
+    - Reachability
+  - Flutter (1.0.0)
   - ObjectMapper (4.2.0)
+  - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
 
@@ -49,8 +51,8 @@ DEPENDENCIES:
   - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - amplify_flutter (from `.symlinks/plugins/amplify_flutter/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - Flutter (from `Flutter`)
-  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 SPEC REPOS:
@@ -64,6 +66,7 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSPluginsCore
     - ObjectMapper
+    - Reachability
 
 EXTERNAL SOURCES:
   amplify_auth_cognito:
@@ -72,10 +75,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_core/ios"
   amplify_flutter:
     :path: ".symlinks/plugins/amplify_flutter/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
   Flutter:
     :path: Flutter
-  image_picker:
-    :path: ".symlinks/plugins/image_picker/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
@@ -91,9 +94,10 @@ SPEC CHECKSUMS:
   AWSCore: 609b7fbd59837525c818f3e8e3d42d3b427cadf6
   AWSMobileClient: ce80d78e09d2c4a19da2759e088b7fb284004ab1
   AWSPluginsCore: cadee247acd6a0e8a1915fa3a7ec2b80b49f43bb
+  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  image_picker: 50e7c7ff960e5f58faa4d1f4af84a771c671bc4a
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3

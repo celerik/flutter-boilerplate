@@ -11,7 +11,6 @@ Future<void> configureAmplify() async {
 
   try {
     await Amplify.configure(amplifyconfig);
-    print('CONFIGURADO');
   } on AmplifyAlreadyConfiguredException {
     print("Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
   }

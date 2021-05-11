@@ -1,6 +1,9 @@
+// @packages
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+
+// @scripts
 import 'package:flutter_boilerplate/screens/home_page/home_page.dart';
 import 'package:flutter_boilerplate/screens/login_page/login_page.dart';
 
@@ -17,6 +20,7 @@ class _Root extends State<Root> {
   @override
   void initState() {
     super.initState();
+
     try {
       Amplify.Auth.getCurrentUser().then((value) {
         if (value.userId.isNotEmpty && value.username.isNotEmpty) {

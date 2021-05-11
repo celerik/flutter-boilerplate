@@ -1,9 +1,9 @@
 // @packages
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // @scripts
-import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/config/theme/custom_theme.dart';

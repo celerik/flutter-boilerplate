@@ -13,6 +13,7 @@ class CustomColors {
   final Color _inputBorder = const Color(0xff2D3643);
   final Color _inputLabel = const Color(0xff5B6571);
   final Color _appBar = const Color(0xff565D6B);
+  final Color _warning = Colors.amberAccent;
 
   Color get black => _black;
   Color get success => _success;
@@ -24,4 +25,5 @@ class CustomColors {
   Color get white => _white;
   Color get background => _background;
   Color get colorBackground => _colorBackground;
+  Color get warning => _warning;
 }
