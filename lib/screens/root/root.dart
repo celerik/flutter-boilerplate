@@ -21,17 +21,15 @@ class _Root extends State<Root> {
   void initState() {
     super.initState();
 
-    try {
-      Amplify.Auth.getCurrentUser().then((value) {
-        if (value.userId.isNotEmpty && value.username.isNotEmpty) {
-          setState(() => isLoggedIn = true);
-        } else {
-          setState(() => isLoggedIn = false);
-        }
-      });
-    } on AuthException catch (_) {
+    Amplify.Auth.getCurrentUser().then((value) {
+      if (value.userId.isNotEmpty && value.username.isNotEmpty) {
+        setState(() => isLoggedIn = true);
+      } else {
+        setState(() => isLoggedIn = false);
+      }
+    }).catchError((_) {
       setState(() => isLoggedIn = false);
-    }
+    });
   }
 
   @override
