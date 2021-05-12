@@ -2,6 +2,9 @@
 import 'dart:convert';
 import 'package:http_interceptor/http_client_with_interceptor.dart';
 
+// @scripts
+import 'package:flutter_boilerplate/business_logic/services/models/example_api.dart';
+
 // @constants
 import 'package:flutter_boilerplate/business_logic/utils/constants.dart';
 
@@ -10,18 +13,9 @@ class ExampleApi {
 
   ExampleApi({this.client});
 
-  Future<Map<String, dynamic>> exampleFetch() async {
-    Map<String, dynamic> parsedData;
-    try {
-      final response = await client.get(Uri.parse(Constants().apiUrl));
-      if (response.statusCode == 200) {
-        parsedData = json.decode(response.body);
-      } else {
-        print(response.body);
-      }
-    } catch (error) {
-      print(error);
-    }
+  Future<ExampleApiModel> exampleFetch() async {
+    final response = await client.get(Uri.parse(Constants().apiUrl));
+    final parsedData = ExampleApiModel.fromJson(json.decode(response.body));
     return parsedData;
   }
 }
