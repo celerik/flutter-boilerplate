@@ -25,5 +25,6 @@
   "verify_confirm": "Your email has been verified",
   "verify_text": "Enter the 6-digit code that was sent to your email to verify your identify",
   "upload_photo": "Upload a profile photo",
-  "valid_email_regex": "Please enter valid email address"
+  "valid_email_regex": "Please enter valid email address",
+  "no_internet": "You do not have internet connection"
 }

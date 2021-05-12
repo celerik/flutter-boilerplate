@@ -29,7 +29,9 @@ dependencies:
   amplify_flutter: <1.0.0
   amplify_auth_cognito: <1.0.0
   cupertino_icons: ^1.0.2
+  connectivity: ^3.0.3
   flutter_bloc: ^7.0.0
+  http_interceptor: ^0.4.1
   intl: ^0.17.0
   pedantic: ^1.11.0
   pin_code_fields: ^7.0.0
