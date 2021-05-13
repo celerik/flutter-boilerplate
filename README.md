@@ -31,6 +31,18 @@ To run the test just run the following command:
 
 ``` flutter test ```
 
+## Splash screen
+
+To add a splash screen follow the next steps:
+
+- Add your custom image inside the assets/images folder.
+- Replace the image route inside the pubspec.yaml in the flutter_native_splash statement.
+- In the flutter_native_splash you can change a lot of properties (see: https://pub.dev/packages/flutter_native_splash).
+- Run ``` flutter pub get ```.
+- Run ``` flutter pub run flutter_native_splash:create ``` to create the assets and the configuration.
+for the splash screen for the different options (Android, iOS, etc).
+- Finally run your application and you will see the splash screen created.
+
 ## Support
 
 A few resources to get you started if this is your first Flutter project:
