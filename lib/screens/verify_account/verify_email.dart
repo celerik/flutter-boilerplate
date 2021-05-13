@@ -135,8 +135,7 @@ class _VerifyPageState extends State<VerifyPage> {
   Future<void> _verifyCode(String email) async {
     final text = AppLocalizations.of(context);
     final code = _codeUserController.text.trim();
-    print(code);
-    print(checkTextControllers([code]));
+
     if (checkTextControllers([code])) {
       try {
         await Amplify.Auth.confirmSignUp(
@@ -144,8 +143,8 @@ class _VerifyPageState extends State<VerifyPage> {
           confirmationCode: code,
         );
 
-        await Navigator.pushReplacementNamed(context, '/');
         showSnackBar(context, text.verify_confirm, 'success');
+        await Navigator.pushReplacementNamed(context, '/');
       } on AuthException catch (e) {
         showSnackBar(context, e.message, 'error');
       }
