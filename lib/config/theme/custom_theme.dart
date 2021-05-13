@@ -7,6 +7,7 @@ import 'package:flutter_boilerplate/config/colors/colors.dart';
 class CustomTheme {
   ThemeData get lightTheme {
     return ThemeData(
+      fontFamily: 'Nunito',
       primaryColor: CustomColors().background,
       scaffoldBackgroundColor: CustomColors().white,
       hintColor: CustomColors().white,
