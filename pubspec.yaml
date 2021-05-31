@@ -40,7 +40,7 @@ dependencies:
 
 flutter_native_splash:
   color: '#ffffff'
-  image: assets/icons/celerik.png
+  image: assets/images/celerik.png
   ios: true
   android: true
 
