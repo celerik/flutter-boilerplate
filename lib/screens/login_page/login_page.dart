@@ -51,13 +51,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 10),
                 _loginForm(),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/signUp'),
-                    child: Text(text.do_not_have_account),
-                  ),
-                )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pushNamed(context, '/signUp'),
+                        child: Text(text.do_not_have_account),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, '/forgotPassword'),
+                      child: Text(text.forgot_password),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
