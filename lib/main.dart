@@ -5,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
+import 'package:flutter_boilerplate/screens/forgot_password/forgot_password.dart';
+import 'package:flutter_boilerplate/screens/verify_code/verify_code.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/config/theme/custom_theme.dart';
 import 'package:flutter_boilerplate/screens/root/root.dart';
 import 'package:flutter_boilerplate/screens/second_screen/second_screen.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/basic_state/basic_state_bloc.dart';
 import 'package:flutter_boilerplate/screens/sign_up_screen/sign_up.dart';
-import 'package:flutter_boilerplate/screens/verify_account/verify_email.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
 import 'package:flutter_boilerplate/business_logic/services/amplify_services.dart';
 
@@ -51,7 +52,8 @@ class FlutterBaseline extends StatelessWidget {
         '/': (context) => const Root(),
         '/secondScreen': (context) => const SecondScreen(),
         '/signUp': (context) => const SignUpPage(),
-        '/verifyAccount': (context) => const VerifyPage()
+        '/verifyAccount': (context) => const VerifyPage(),
+        '/forgotPassword': (context) => const ForgotPassword()
       },
     );
   }

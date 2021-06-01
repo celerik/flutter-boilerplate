@@ -26,5 +26,12 @@
   "verify_text": "Enter the 6-digit code that was sent to your email to verify your identify",
   "upload_photo": "Upload a profile photo",
   "valid_email_regex": "Please enter valid email address",
-  "no_internet": "You do not have internet connection"
+  "no_internet": "You do not have internet connection",
+  "forgot_password": "Forgot password?",
+  "recover_password": "Recover password",
+  "send_code": "Send code",
+  "change_password": "Change password",
+  "password_changed": "The password was changed successfully",
+  "fields_required": "You must complete all the fields",
+  "password_must_be_same": "The passwords must be the same"
 }
