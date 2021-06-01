@@ -6,7 +6,7 @@ class BasicState {
 
   BasicState({this.number = 0});
 
-  BasicState copyWith({int number}) {
+  BasicState copyWith({int? number}) {
     return BasicState(number: number ?? this.number);
   }
 }

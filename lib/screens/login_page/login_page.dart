@@ -1,7 +1,6 @@
 // @packages
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
@@ -11,7 +10,7 @@ import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
@@ -43,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 Text(
-                  text.login_message,
+                  text!.login_message,
                   style: TextStyle(
                     fontSize: 37,
                     fontWeight: FontWeight.bold,
@@ -52,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 10),
                 _loginForm(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       alignment: Alignment.bottomCenter,
@@ -78,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _loginForm() {
     final text = AppLocalizations.of(context);
 
-    String commonValidator(String value) {
+    String? commonValidator(String value) {
       if (value.isEmpty) {
-        return text.empty_value;
+        return text!.empty_value;
       }
       return null;
     }
@@ -92,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           InputText(
             controller: _usernameController,
-            labelString: text.email,
+            labelString: text!.email,
             backgroundColor: CustomColors().inputBackground,
             keyboardType: TextInputType.emailAddress,
             borderColor: CustomColors().inputBorder,
@@ -129,18 +128,23 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     final email = _usernameController.text.trim();
     final password = _passwordController.text.trim();
-    _formLoginKey.currentState.validate();
+    _formLoginKey.currentState!.validate();
 
     if (checkTextControllers([password, email])) {
       try {
-        await Amplify.Auth.signIn(
-          username: email,
-          password: password,
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email,
+            password: password
         );
 
         await Navigator.pushReplacementNamed(context, '/');
-      } on AuthException catch (e) {
-        showSnackBar(context, e.message, 'error');
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+        showSnackBar(context, e.message!, 'error');
       }
     }
   }

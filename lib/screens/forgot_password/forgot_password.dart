@@ -1,7 +1,5 @@
 // @packages
 import 'package:flutter/material.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
@@ -11,7 +9,7 @@ import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key key}) : super(key: key);
+  const ForgotPassword({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ForgotPasswordState();
@@ -49,7 +47,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: Column(
               children: [
                 Text(
-                  text.recover_password,
+                  text!.recover_password,
                   style: TextStyle(
                     fontSize: 37,
                     fontWeight: FontWeight.bold,
@@ -68,9 +66,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget _forgotPasswordForm() {
     final text = AppLocalizations.of(context);
 
-    String commonValidator(String value) {
+    String? commonValidator(String value) {
       if (value.isEmpty) {
-        return text.empty_value;
+        return text!.empty_value;
       }
       return null;
     }
@@ -83,7 +81,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           !_showOtherFields
               ? InputText(
                   controller: _usernameController,
-                  labelString: text.email,
+                  labelString: text!.email,
                   backgroundColor: CustomColors().inputBackground,
                   keyboardType: TextInputType.emailAddress,
                   borderColor: CustomColors().inputBorder,
@@ -99,7 +97,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   children: [
                     InputText(
                       controller: _codeController,
-                      labelString: text.code,
+                      labelString: text!.code,
                       backgroundColor: CustomColors().inputBackground,
                       keyboardType: TextInputType.number,
                       borderColor: CustomColors().inputBorder,
@@ -142,7 +140,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               : SizedBox.shrink(),
           ElevatedButton(
             onPressed: _recoverPassword,
-            child: Text(!_showOtherFields ? text.send_code : text.change_password),
+            child: Text(
+              !_showOtherFields ? text!.send_code : text!.change_password,
+            ),
           )
         ],
       ),
@@ -157,36 +157,27 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     final text = AppLocalizations.of(context);
 
     if (!_showOtherFields && checkTextControllers([email]) ||
-        _showOtherFields && checkTextControllers([code, password, passwordConfirmation])) {
+        _showOtherFields &&
+            checkTextControllers([code, password, passwordConfirmation])) {
       try {
         if (!_showOtherFields) {
-          await Amplify.Auth.resetPassword(
-            username: email,
-          );
-
           setState(() => _showOtherFields = true);
-          showSnackBar(context, text.sign_up_success, 'success');
+          showSnackBar(context, text!.sign_up_success, 'success');
         } else {
-          _formForgotPasswordKey.currentState.validate();
+          _formForgotPasswordKey.currentState!.validate();
 
           if (password.compareTo(passwordConfirmation) == 0) {
-            await Amplify.Auth.confirmPassword(
-              username: email,
-              newPassword: passwordConfirmation,
-              confirmationCode: code,
-            );
-
-            showSnackBar(context, text.password_changed, 'success');
+            showSnackBar(context, text!.password_changed, 'success');
             await Navigator.pushReplacementNamed(context, '/');
           } else {
-            showSnackBar(context, text.password_must_be_same, 'error');
+            showSnackBar(context, text!.password_must_be_same, 'error');
           }
         }
-      } on AuthException catch (e) {
-        showSnackBar(context, e.message, 'error');
+      } catch (e) {
+        showSnackBar(context, e.toString(), 'error');
       }
     } else {
-      showSnackBar(context, text.fields_required, 'error');
+      showSnackBar(context, text!.fields_required, 'error');
     }
   }
 }

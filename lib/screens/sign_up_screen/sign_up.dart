@@ -1,7 +1,6 @@
 // @packages
 import 'dart:io';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,30 +13,23 @@ import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_aut
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  File _image;
-  final _userNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
   final _formSignKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    _userNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _phoneNumberController.dispose();
     _confirmPasswordController.dispose();
-    _lastNameController.dispose();
     super.dispose();
   }
 
@@ -54,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: EdgeInsets.only(top: 50),
             child: Column(children: [
               Text(
-                text.sign_up_title,
+                text!.sign_up_title,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -83,9 +75,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _signUpForm() {
     final text = AppLocalizations.of(context);
 
-    String commonValidator(String value) {
-      if (value.isEmpty) {
-        return text.empty_value;
+    String? commonValidator(String? value) {
+      if (value!.isEmpty) {
+        return text!.empty_value;
       }
       return null;
     }
@@ -97,48 +89,9 @@ class _SignUpPageState extends State<SignUpPage> {
         children: [
           SizedBox(height: 5),
           InputText(
-            controller: _userNameController,
-            labelString: text.user_name,
-            keyboardType: TextInputType.name,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _lastNameController,
-            labelString: text.last_name,
-            keyboardType: TextInputType.name,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
             controller: _emailController,
-            labelString: text.email,
+            labelString: text!.email,
             keyboardType: TextInputType.emailAddress,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _phoneNumberController,
-            labelString: text.phone_number,
-            keyboardType: TextInputType.phone,
             backgroundColor: CustomColors().inputBackground,
             borderColor: CustomColors().inputBorder,
             labelStyle: TextStyle(color: CustomColors().inputLabel),
@@ -187,28 +140,36 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<void> _signUp() async {
     final text = AppLocalizations.of(context);
-    final username = _userNameController.text.trim();
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
-    final phoneNumber = _phoneNumberController.text.trim();
+    final confirmPasswordController = _confirmPasswordController.text.trim();
     final userAuthBloc = BlocProvider.of<UserAuthStateBloc>(context);
-    _formSignKey.currentState.validate();
+    _formSignKey.currentState!.validate();
 
-    if (checkTextControllers([username, password, email, phoneNumber])) {
+    if (checkTextControllers([password, email])) {
       try {
-        final userAttributes = {'name': username, 'phone_number': '+$phoneNumber'};
+        if (password.compareTo(confirmPasswordController) == 0) {
+          final userCredential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
 
-        await Amplify.Auth.signUp(
-          username: email,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: userAttributes),
-        );
-
-        userAuthBloc.add(AddUserState(email: email, userName: username));
-        showSnackBar(context, text.sign_up_success, 'success');
-        await Navigator.pushNamed(context, '/verifyAccount');
-      } on AuthException catch (e) {
-        showSnackBar(context, e.message, 'error');
+          userAuthBloc.add(AddUserState(email: email));
+          showSnackBar(context, text!.sign_up_success, 'success');
+          await Navigator.pushNamed(context, '/');
+        } else {
+          showSnackBar(context, text!.password_must_be_same, 'error');
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+        showSnackBar(context, e.message!, 'error');
+      } catch (e) {
+        showSnackBar(context, e.toString(), 'error');
       }
     }
   }

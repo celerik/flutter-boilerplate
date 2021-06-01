@@ -7,7 +7,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 
 class PinCodeText extends StatelessWidget {
-  final VoidCallback onComplete;
+  final VoidCallback? onComplete;
   final StreamController<ErrorAnimationType> errorAnimationController;
   final TextEditingController controller;
   final int length;
@@ -16,14 +16,14 @@ class PinCodeText extends StatelessWidget {
   final double borderRadius;
 
   const PinCodeText({
-    Key key,
-    @required this.onComplete,
-    @required this.errorAnimationController,
-    @required this.controller,
-    @required this.length,
-    @required this.width,
-    @required this.height,
-    @required this.borderRadius,
+    Key? key,
+    this.onComplete,
+    required this.errorAnimationController,
+    required this.controller,
+    required this.length,
+    required this.width,
+    required this.height,
+    required this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -53,14 +53,14 @@ class PinCodeText extends StatelessWidget {
       errorAnimationController: errorAnimationController,
       controller: controller,
       keyboardType: TextInputType.number,
-      boxShadows: [
+      boxShadows: const [
         BoxShadow(
           offset: Offset(0, 1),
           color: Colors.black12,
           blurRadius: 10,
         ),
       ],
-      onCompleted: (_) => onComplete(),
+      onCompleted: (_) => onComplete!(),
       onChanged: (_) => Function,
     );
   }

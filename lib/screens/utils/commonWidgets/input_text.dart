@@ -12,28 +12,28 @@ class InputText extends StatefulWidget {
   final Color borderColor;
   final TextStyle labelStyle;
   final TextStyle textStyle;
-  final Function validator;
+  final Function? validator;
   final double width;
   final double height;
   final bool obscureText;
-  final bool error;
-  final TextInputType keyboardType;
+  final bool? error;
+  final TextInputType? keyboardType;
   final TextEditingController controller;
 
   const InputText({
-    Key key,
-    @required this.labelString,
-    @required this.backgroundColor,
-    @required this.borderColor,
-    @required this.labelStyle,
-    @required this.controller,
-    @required this.textStyle,
-    @required this.height,
-    @required this.width,
+    Key? key,
     this.validator,
     this.error,
     this.obscureText = false,
     this.keyboardType,
+    required this.labelString,
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.labelStyle,
+    required this.controller,
+    required this.textStyle,
+    required this.height,
+    required this.width,
   }) : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class _InputText extends State<InputText> {
   void initState() {
     super.initState();
     if (widget.error != null) {
-      _inputError = widget.error;
+      _inputError = widget.error!;
     }
   }
 
@@ -84,10 +84,10 @@ class _InputText extends State<InputText> {
         style: widget.textStyle,
         controller: widget.controller,
         focusNode: _focus,
-        validator: (String value) {
-          if (value.isEmpty) {
+        validator: (String? value) {
+          if (value!.isEmpty) {
             if (widget.validator != null) {
-              final res = widget.validator(value);
+              final res = widget.validator!(value);
               setState(() => errorText = res);
             }
             setState(() => _inputError = true);
@@ -96,7 +96,7 @@ class _InputText extends State<InputText> {
               final regex = RegExp(RegexExpressions().emailPattern);
               if (!regex.hasMatch(value)) {
                 setState(() {
-                  errorText = configText.valid_email_regex;
+                  errorText = configText!.valid_email_regex;
                   _inputError = true;
                 });
               }
