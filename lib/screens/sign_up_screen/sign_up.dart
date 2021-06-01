@@ -149,8 +149,7 @@ class _SignUpPageState extends State<SignUpPage> {
     if (checkTextControllers([password, email])) {
       try {
         if (password.compareTo(confirmPasswordController) == 0) {
-          final userCredential =
-              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: email,
             password: password,
           );
@@ -162,11 +161,6 @@ class _SignUpPageState extends State<SignUpPage> {
           showSnackBar(context, text!.password_must_be_same, 'error');
         }
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
-        }
         showSnackBar(context, e.message!, 'error');
       } catch (e) {
         showSnackBar(context, e.toString(), 'error');

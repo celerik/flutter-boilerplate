@@ -50,21 +50,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 10),
                 _loginForm(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.pushNamed(context, '/signUp'),
-                        child: Text(text.do_not_have_account),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => Navigator.pushNamed(context, '/forgotPassword'),
-                      child: Text(text.forgot_password),
-                    ),
-                  ],
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.pushNamed(context, '/signUp'),
+                    child: Text(text.do_not_have_account),
+                  ),
+                ),
+                SizedBox(height: 10),
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/forgotPassword'),
+                  child: Text(text.forgot_password),
                 ),
               ],
             ),
@@ -132,10 +128,8 @@ class _LoginPageState extends State<LoginPage> {
 
     if (checkTextControllers([password, email])) {
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: email,
-            password: password
-        );
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
 
         await Navigator.pushReplacementNamed(context, '/');
       } on FirebaseAuthException catch (e) {

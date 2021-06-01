@@ -1,4 +1,5 @@
 // @packages
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // @scripts
@@ -17,18 +18,11 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final _usernameController = TextEditingController();
-  final _codeController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _passwordVerificationController = TextEditingController();
   final _formForgotPasswordKey = GlobalKey<FormState>();
-  bool _showOtherFields = false;
 
   @override
   void dispose() {
     _usernameController.dispose();
-    _codeController.dispose();
-    _passwordController.dispose();
-    _passwordVerificationController.dispose();
     super.dispose();
   }
 
@@ -78,71 +72,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          !_showOtherFields
-              ? InputText(
-                  controller: _usernameController,
-                  labelString: text!.email,
-                  backgroundColor: CustomColors().inputBackground,
-                  keyboardType: TextInputType.emailAddress,
-                  borderColor: CustomColors().inputBorder,
-                  labelStyle: TextStyle(color: CustomColors().inputLabel),
-                  textStyle: TextStyle(color: CustomColors().black),
-                  height: 45,
-                  width: MediaQuery.of(context).size.width,
-                )
-              : SizedBox.shrink(),
+          InputText(
+            controller: _usernameController,
+            labelString: text!.email,
+            backgroundColor: CustomColors().inputBackground,
+            keyboardType: TextInputType.emailAddress,
+            borderColor: CustomColors().inputBorder,
+            labelStyle: TextStyle(color: CustomColors().inputLabel),
+            textStyle: TextStyle(color: CustomColors().black),
+            height: 45,
+            width: MediaQuery.of(context).size.width,
+            validator: commonValidator,
+          ),
           SizedBox(height: 10),
-          _showOtherFields
-              ? Column(
-                  children: [
-                    InputText(
-                      controller: _codeController,
-                      labelString: text!.code,
-                      backgroundColor: CustomColors().inputBackground,
-                      keyboardType: TextInputType.number,
-                      borderColor: CustomColors().inputBorder,
-                      labelStyle: TextStyle(color: CustomColors().inputLabel),
-                      textStyle: TextStyle(color: CustomColors().black),
-                      height: 45,
-                      width: MediaQuery.of(context).size.width,
-                      validator: commonValidator,
-                    ),
-                    SizedBox(height: 10),
-                    InputText(
-                      controller: _passwordController,
-                      labelString: text.password,
-                      backgroundColor: CustomColors().inputBackground,
-                      keyboardType: TextInputType.visiblePassword,
-                      borderColor: CustomColors().inputBorder,
-                      labelStyle: TextStyle(color: CustomColors().inputLabel),
-                      textStyle: TextStyle(color: CustomColors().black),
-                      height: 45,
-                      obscureText: true,
-                      width: MediaQuery.of(context).size.width,
-                      validator: commonValidator,
-                    ),
-                    SizedBox(height: 10),
-                    InputText(
-                      controller: _passwordVerificationController,
-                      labelString: text.confirm_password,
-                      backgroundColor: CustomColors().inputBackground,
-                      keyboardType: TextInputType.visiblePassword,
-                      borderColor: CustomColors().inputBorder,
-                      labelStyle: TextStyle(color: CustomColors().inputLabel),
-                      textStyle: TextStyle(color: CustomColors().black),
-                      height: 45,
-                      obscureText: true,
-                      width: MediaQuery.of(context).size.width,
-                      validator: commonValidator,
-                    ),
-                  ],
-                )
-              : SizedBox.shrink(),
           ElevatedButton(
             onPressed: _recoverPassword,
-            child: Text(
-              !_showOtherFields ? text!.send_code : text!.change_password,
-            ),
+            child: Text(text!.send_code),
           )
         ],
       ),
@@ -151,28 +96,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   Future<void> _recoverPassword() async {
     final email = _usernameController.text.trim();
-    final password = _passwordController.text.trim();
-    final passwordConfirmation = _passwordVerificationController.text.trim();
-    final code = _codeController.text.trim();
     final text = AppLocalizations.of(context);
 
-    if (!_showOtherFields && checkTextControllers([email]) ||
-        _showOtherFields &&
-            checkTextControllers([code, password, passwordConfirmation])) {
+    if (checkTextControllers([email])) {
       try {
-        if (!_showOtherFields) {
-          setState(() => _showOtherFields = true);
-          showSnackBar(context, text!.sign_up_success, 'success');
-        } else {
-          _formForgotPasswordKey.currentState!.validate();
-
-          if (password.compareTo(passwordConfirmation) == 0) {
-            showSnackBar(context, text!.password_changed, 'success');
-            await Navigator.pushReplacementNamed(context, '/');
-          } else {
-            showSnackBar(context, text!.password_must_be_same, 'error');
-          }
-        }
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        showSnackBar(context, text!.sign_up_success, 'success');
+        await Navigator.pushReplacementNamed(context, '/');
       } catch (e) {
         showSnackBar(context, e.toString(), 'error');
       }
