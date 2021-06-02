@@ -1,15 +1,12 @@
 // @packages
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -143,7 +140,6 @@ class _SignUpPageState extends State<SignUpPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
     final confirmPasswordController = _confirmPasswordController.text.trim();
-    final userAuthBloc = BlocProvider.of<UserAuthStateBloc>(context);
     _formSignKey.currentState!.validate();
 
     if (checkTextControllers([password, email])) {
@@ -154,8 +150,6 @@ class _SignUpPageState extends State<SignUpPage> {
             password: password,
           );
 
-          userAuthBloc.add(AddUserState(email: email));
-          showSnackBar(context, text!.sign_up_success, 'success');
           await Navigator.pushNamed(context, '/');
         } else {
           showSnackBar(context, text!.password_must_be_same, 'error');

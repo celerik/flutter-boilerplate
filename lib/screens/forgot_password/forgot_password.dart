@@ -87,7 +87,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           SizedBox(height: 10),
           ElevatedButton(
             onPressed: _recoverPassword,
-            child: Text(text!.send_code),
+            child: Text(text.send_code),
           )
         ],
       ),
@@ -97,6 +97,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Future<void> _recoverPassword() async {
     final email = _usernameController.text.trim();
     final text = AppLocalizations.of(context);
+    _formForgotPasswordKey.currentState!.validate();
 
     if (checkTextControllers([email])) {
       try {

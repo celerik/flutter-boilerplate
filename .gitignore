@@ -64,3 +64,7 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
+
+#Firebase configuration
+android/app/google-services.json
+ios/GoogleService-Info.plist

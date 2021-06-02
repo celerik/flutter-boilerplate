@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 // @scripts
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
