@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // @scripts
-import 'package:flutter_boilerplate/screens/home_page/home_page.dart';
 import 'package:flutter_boilerplate/screens/login_page/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/bottom_app_bar.dart';
 
 class Root extends StatefulWidget {
   const Root({Key? key}) : super(key: key);
@@ -30,6 +30,6 @@ class _Root extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoggedIn ? HomePage() : LoginPage();
+    return isLoggedIn ? BottomAppBarContainer() : LoginPage();
   }
 }
