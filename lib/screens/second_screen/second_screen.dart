@@ -1,11 +1,12 @@
 // @packages
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/carousel.dart';
 
 // @scripts
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/basic_state/basic_state_bloc.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/carousel.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/selectable_icons.dart';
 
 // @const_variables
 final List<String> imgList = [
@@ -17,8 +18,15 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-class SecondScreen extends StatelessWidget {
+class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _SecondScreen();
+}
+
+class _SecondScreen extends State<SecondScreen> {
+  var var1 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class SecondScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -65,6 +73,17 @@ class SecondScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+            SelectableIcon(
+              icon: Icons.ac_unit_rounded,
+              backgroundColor: Colors.black38,
+              iconColor: Colors.red,
+              onSelectedColor: Color(0xff68D194),
+              height: 100,
+              width: 100,
+              iconSize: 50,
+              onTap: () => setState(() => var1 = !var1),
+              isPressed: var1,
             ),
           ],
         ),
