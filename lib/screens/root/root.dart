@@ -1,7 +1,6 @@
 // @packages
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/screens/home_page/home_page.dart';
@@ -20,16 +19,13 @@ class _Root extends State<Root> {
   @override
   void initState() {
     super.initState();
+    final email = SharedPrefs().getValueFromKey('email');
 
-    Amplify.Auth.getCurrentUser().then((value) {
-      if (value.userId.isNotEmpty && value.username.isNotEmpty) {
-        setState(() => isLoggedIn = true);
-      } else {
-        setState(() => isLoggedIn = false);
-      }
-    }).catchError((_) {
+    if (email != null) {
+      setState(() => isLoggedIn = true);
+    } else {
       setState(() => isLoggedIn = false);
-    });
+    }
   }
 
   @override

@@ -1,7 +1,7 @@
 // @packages
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -132,14 +133,17 @@ class _LoginPageState extends State<LoginPage> {
     _formLoginKey.currentState.validate();
 
     if (checkTextControllers([password, email])) {
-      try {
-        await Amplify.Auth.signIn(
-          username: email,
-          password: password,
-        );
+      final cognitoUser = CognitoUser(email, userPool);
+      final authDetails = AuthenticationDetails(
+        username: email,
+        password: password,
+      );
 
+      try {
+        await cognitoUser.authenticateUser(authDetails);
+        await SharedPrefs().setValueAndKey('email', email);
         await Navigator.pushReplacementNamed(context, '/');
-      } on AuthException catch (e) {
+      } catch (e) {
         showSnackBar(context, e.message, 'error');
       }
     }

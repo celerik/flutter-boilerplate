@@ -1,11 +1,11 @@
 // @packages
 import 'dart:async';
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 // @scripts
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
@@ -138,14 +138,12 @@ class _VerifyPageState extends State<VerifyPage> {
 
     if (checkTextControllers([code])) {
       try {
-        await Amplify.Auth.confirmSignUp(
-          username: email,
-          confirmationCode: code,
-        );
+        final cognitoUser = CognitoUser(email, userPool);
+        await cognitoUser.confirmRegistration(code);
 
         showSnackBar(context, text.verify_confirm, 'success');
         await Navigator.pushReplacementNamed(context, '/');
-      } on AuthException catch (e) {
+      } catch (e) {
         showSnackBar(context, e.message, 'error');
       }
     }
@@ -155,9 +153,10 @@ class _VerifyPageState extends State<VerifyPage> {
     final text = AppLocalizations.of(context);
 
     try {
-      await Amplify.Auth.resendSignUpCode(username: email);
+      final cognitoUser = CognitoUser(email, userPool);
+      await cognitoUser.resendConfirmationCode();
       showSnackBar(context, text.code_sent, 'success');
-    } on AuthException catch (e) {
+    } catch (e) {
       showSnackBar(context, e.message, 'error');
     }
   }

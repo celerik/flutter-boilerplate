@@ -1,7 +1,7 @@
 // @packages
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
@@ -159,10 +159,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     if (!_showOtherFields && checkTextControllers([email]) ||
         _showOtherFields && checkTextControllers([code, password, passwordConfirmation])) {
       try {
+        final cognitoUser = CognitoUser(email, userPool);
+
         if (!_showOtherFields) {
-          await Amplify.Auth.resetPassword(
-            username: email,
-          );
+          await cognitoUser.forgotPassword();
 
           setState(() => _showOtherFields = true);
           showSnackBar(context, text.sign_up_success, 'success');
@@ -170,11 +170,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           _formForgotPasswordKey.currentState.validate();
 
           if (password.compareTo(passwordConfirmation) == 0) {
-            await Amplify.Auth.confirmPassword(
-              username: email,
-              newPassword: passwordConfirmation,
-              confirmationCode: code,
-            );
+            await cognitoUser.confirmPassword(code, passwordConfirmation);
 
             showSnackBar(context, text.password_changed, 'success');
             await Navigator.pushReplacementNamed(context, '/');
@@ -182,7 +178,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             showSnackBar(context, text.password_must_be_same, 'error');
           }
         }
-      } on AuthException catch (e) {
+      } catch (e) {
         showSnackBar(context, e.message, 'error');
       }
     } else {

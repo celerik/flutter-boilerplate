@@ -1,11 +1,11 @@
 // @packages
 import 'dart:io';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // @scripts
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
@@ -196,18 +196,21 @@ class _SignUpPageState extends State<SignUpPage> {
 
     if (checkTextControllers([username, password, email, phoneNumber])) {
       try {
-        final userAttributes = {'name': username, 'phone_number': '+$phoneNumber'};
+        final userAttributes = [
+          AttributeArg(name: 'name', value: username),
+          AttributeArg(name: 'phone_number', value: '+$phoneNumber'),
+        ];
 
-        await Amplify.Auth.signUp(
-          username: email,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: userAttributes),
+        await userPool.signUp(
+          email,
+          password,
+          userAttributes: userAttributes,
         );
 
         userAuthBloc.add(AddUserState(email: email, userName: username));
         showSnackBar(context, text.sign_up_success, 'success');
         await Navigator.pushNamed(context, '/verifyAccount');
-      } on AuthException catch (e) {
+      } catch (e) {
         showSnackBar(context, e.message, 'error');
       }
     }
