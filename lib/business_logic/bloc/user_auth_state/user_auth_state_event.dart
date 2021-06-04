@@ -4,8 +4,8 @@ part of 'user_auth_state_bloc.dart';
 abstract class UserAuthStateEvent {}
 
 class AddUserState extends UserAuthStateEvent {
-  final String userName;
-  final String email;
+  final String? userName;
+  final String? email;
 
   AddUserState({this.userName, this.email});
 }

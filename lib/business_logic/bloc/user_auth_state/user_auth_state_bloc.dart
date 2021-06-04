@@ -14,7 +14,7 @@ class UserAuthStateBloc extends Bloc<UserAuthStateEvent, UserAuthStateInitial> {
     UserAuthStateEvent event,
   ) async* {
     if (event is AddUserState) {
-      yield UserAuthStateInitial(userName: event.userName, email: event.email);
+      yield UserAuthStateInitial(userName: event.userName!, email: event.email);
     }
   }
 }

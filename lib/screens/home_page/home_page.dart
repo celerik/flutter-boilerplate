@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(text.title),
+        title: Text(text!.title),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(30),
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
       await SharedPrefs().reset();
       await Navigator.pushReplacementNamed(context, '/');
     } catch (e) {
-      showSnackBar(context, e.message, 'success');
+      showSnackBar(context, e.toString(), 'success');
     }
   }
 }

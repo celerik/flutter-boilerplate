@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/basic_state/basic_state_bloc.dart';
 
 class SecondScreen extends StatelessWidget {
-  const SecondScreen({Key key}) : super(key: key);
+  const SecondScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SecondScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(text.second_screen),
+        title: Text(text!.second_screen),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(30),

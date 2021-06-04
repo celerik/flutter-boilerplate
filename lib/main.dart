@@ -22,7 +22,7 @@ Future<void> main() async {
 }
 
 class AppState extends StatelessWidget {
-  const AppState({Key key}) : super(key: key);
+  const AppState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class AppState extends StatelessWidget {
 }
 
 class FlutterBaseline extends StatelessWidget {
-  const FlutterBaseline({Key key}) : super(key: key);
+  const FlutterBaseline({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

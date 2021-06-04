@@ -15,7 +15,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class VerifyPage extends StatefulWidget {
-  const VerifyPage({Key key}) : super(key: key);
+  const VerifyPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _VerifyPageState();
@@ -23,7 +23,7 @@ class VerifyPage extends StatefulWidget {
 
 class _VerifyPageState extends State<VerifyPage> {
   final _codeUserController = TextEditingController();
-  StreamController<ErrorAnimationType> errorController;
+  StreamController<ErrorAnimationType>? errorController;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _VerifyPageState extends State<VerifyPage> {
   @override
   void dispose() {
     _codeUserController.dispose();
-    errorController.close();
+    errorController!.close();
     super.dispose();
   }
 
@@ -82,7 +82,7 @@ class _VerifyPageState extends State<VerifyPage> {
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(top: 50),
                         child: Text(
-                          text.verify_email,
+                          text!.verify_email,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 30,
@@ -104,8 +104,8 @@ class _VerifyPageState extends State<VerifyPage> {
                           return Column(
                             children: [
                               PinCodeText(
-                                onComplete: () => _verifyCode(state.email),
-                                errorAnimationController: errorController,
+                                onComplete: () => _verifyCode(state.email!),
+                                errorAnimationController: errorController!,
                                 controller: _codeUserController,
                                 length: 6,
                                 width: 45,
@@ -114,7 +114,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               ),
                               SizedBox(height: 10),
                               ElevatedButton(
-                                onPressed: () => _resendCode(state.email),
+                                onPressed: () => _resendCode(state.email!),
                                 child: Text(text.resend_code),
                               ),
                             ],
@@ -141,10 +141,10 @@ class _VerifyPageState extends State<VerifyPage> {
         final cognitoUser = CognitoUser(email, userPool);
         await cognitoUser.confirmRegistration(code);
 
-        showSnackBar(context, text.verify_confirm, 'success');
+        showSnackBar(context, text!.verify_confirm, 'success');
         await Navigator.pushReplacementNamed(context, '/');
       } catch (e) {
-        showSnackBar(context, e.message, 'error');
+        showSnackBar(context, e.toString(), 'error');
       }
     }
   }
@@ -155,9 +155,9 @@ class _VerifyPageState extends State<VerifyPage> {
     try {
       final cognitoUser = CognitoUser(email, userPool);
       await cognitoUser.resendConfirmationCode();
-      showSnackBar(context, text.code_sent, 'success');
+      showSnackBar(context, text!.code_sent, 'success');
     } catch (e) {
-      showSnackBar(context, e.message, 'error');
+      showSnackBar(context, e.toString(), 'error');
     }
   }
 }

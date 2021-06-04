@@ -7,7 +7,7 @@ import 'package:flutter_boilerplate/screens/home_page/home_page.dart';
 import 'package:flutter_boilerplate/screens/login_page/login_page.dart';
 
 class Root extends StatefulWidget {
-  const Root({Key key}) : super(key: key);
+  const Root({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _Root();

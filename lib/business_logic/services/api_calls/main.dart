@@ -6,7 +6,7 @@ import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:flutter_boilerplate/business_logic/services/api_calls/example_api.dart';
 
 class ApiCall {
-  ExampleApi exampleApi;
+  ExampleApi? exampleApi;
 
   ApiCall() {
     final client = HttpClientWithInterceptor.build(interceptors: [

@@ -14,14 +14,13 @@ import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_aut
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  File _image;
   final _userNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -54,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: EdgeInsets.only(top: 50),
             child: Column(children: [
               Text(
-                text.sign_up_title,
+                text!.sign_up_title,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -83,9 +82,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _signUpForm() {
     final text = AppLocalizations.of(context);
 
-    String commonValidator(String value) {
+    String? commonValidator(String value) {
       if (value.isEmpty) {
-        return text.empty_value;
+        return text!.empty_value;
       }
       return null;
     }
@@ -98,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
           SizedBox(height: 5),
           InputText(
             controller: _userNameController,
-            labelString: text.user_name,
+            labelString: text!.user_name,
             keyboardType: TextInputType.name,
             backgroundColor: CustomColors().inputBackground,
             borderColor: CustomColors().inputBorder,
@@ -192,7 +191,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final password = _passwordController.text.trim();
     final phoneNumber = _phoneNumberController.text.trim();
     final userAuthBloc = BlocProvider.of<UserAuthStateBloc>(context);
-    _formSignKey.currentState.validate();
+    _formSignKey.currentState!.validate();
 
     if (checkTextControllers([username, password, email, phoneNumber])) {
       try {
@@ -208,10 +207,10 @@ class _SignUpPageState extends State<SignUpPage> {
         );
 
         userAuthBloc.add(AddUserState(email: email, userName: username));
-        showSnackBar(context, text.sign_up_success, 'success');
+        showSnackBar(context, text!.sign_up_success, 'success');
         await Navigator.pushNamed(context, '/verifyAccount');
       } catch (e) {
-        showSnackBar(context, e.message, 'error');
+        showSnackBar(context, e.toString(), 'error');
       }
     }
   }

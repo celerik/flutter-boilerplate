@@ -12,7 +12,7 @@ import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 Text(
-                  text.login_message,
+                  text!.login_message,
                   style: TextStyle(
                     fontSize: 37,
                     fontWeight: FontWeight.bold,
@@ -79,9 +79,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _loginForm() {
     final text = AppLocalizations.of(context);
 
-    String commonValidator(String value) {
+    String? commonValidator(String value) {
       if (value.isEmpty) {
-        return text.empty_value;
+        return text!.empty_value;
       }
       return null;
     }
@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           InputText(
             controller: _usernameController,
-            labelString: text.email,
+            labelString: text!.email,
             backgroundColor: CustomColors().inputBackground,
             keyboardType: TextInputType.emailAddress,
             borderColor: CustomColors().inputBorder,
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     final email = _usernameController.text.trim();
     final password = _passwordController.text.trim();
-    _formLoginKey.currentState.validate();
+    _formLoginKey.currentState!.validate();
 
     if (checkTextControllers([password, email])) {
       final cognitoUser = CognitoUser(email, userPool);
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
         await SharedPrefs().setValueAndKey('email', email);
         await Navigator.pushReplacementNamed(context, '/');
       } catch (e) {
-        showSnackBar(context, e.message, 'error');
+        showSnackBar(context, e.toString(), 'error');
       }
     }
   }
