@@ -16,14 +16,14 @@ class PinCodeText extends StatelessWidget {
   final double borderRadius;
 
   const PinCodeText({
-    Key key,
-    @required this.onComplete,
-    @required this.errorAnimationController,
-    @required this.controller,
-    @required this.length,
-    @required this.width,
-    @required this.height,
-    @required this.borderRadius,
+    Key? key,
+    required this.onComplete,
+    required this.errorAnimationController,
+    required this.controller,
+    required this.length,
+    required this.width,
+    required this.height,
+    required this.borderRadius,
   }) : super(key: key);
 
   @override

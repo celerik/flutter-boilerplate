@@ -1,7 +1,7 @@
 // @packages
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
@@ -9,9 +9,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 Text(
-                  text.login_message,
+                  text!.login_message,
                   style: TextStyle(
                     fontSize: 37,
                     fontWeight: FontWeight.bold,
@@ -78,9 +79,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _loginForm() {
     final text = AppLocalizations.of(context);
 
-    String commonValidator(String value) {
+    String? commonValidator(String value) {
       if (value.isEmpty) {
-        return text.empty_value;
+        return text!.empty_value;
       }
       return null;
     }
@@ -92,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           InputText(
             controller: _usernameController,
-            labelString: text.email,
+            labelString: text!.email,
             backgroundColor: CustomColors().inputBackground,
             keyboardType: TextInputType.emailAddress,
             borderColor: CustomColors().inputBorder,
@@ -129,18 +130,21 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     final email = _usernameController.text.trim();
     final password = _passwordController.text.trim();
-    _formLoginKey.currentState.validate();
+    _formLoginKey.currentState!.validate();
 
     if (checkTextControllers([password, email])) {
-      try {
-        await Amplify.Auth.signIn(
-          username: email,
-          password: password,
-        );
+      final cognitoUser = CognitoUser(email, userPool);
+      final authDetails = AuthenticationDetails(
+        username: email,
+        password: password,
+      );
 
+      try {
+        await cognitoUser.authenticateUser(authDetails);
+        await SharedPrefs().setValueAndKey('email', email);
         await Navigator.pushReplacementNamed(context, '/');
-      } on AuthException catch (e) {
-        showSnackBar(context, e.message, 'error');
+      } catch (e) {
+        showSnackBar(context, e.toString(), 'error');
       }
     }
   }

@@ -1,11 +1,11 @@
 // @packages
 import 'dart:async';
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 // @scripts
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
@@ -15,7 +15,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
 class VerifyPage extends StatefulWidget {
-  const VerifyPage({Key key}) : super(key: key);
+  const VerifyPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _VerifyPageState();
@@ -23,7 +23,7 @@ class VerifyPage extends StatefulWidget {
 
 class _VerifyPageState extends State<VerifyPage> {
   final _codeUserController = TextEditingController();
-  StreamController<ErrorAnimationType> errorController;
+  StreamController<ErrorAnimationType>? errorController;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _VerifyPageState extends State<VerifyPage> {
   @override
   void dispose() {
     _codeUserController.dispose();
-    errorController.close();
+    errorController!.close();
     super.dispose();
   }
 
@@ -82,7 +82,7 @@ class _VerifyPageState extends State<VerifyPage> {
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(top: 50),
                         child: Text(
-                          text.verify_email,
+                          text!.verify_email,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 30,
@@ -104,8 +104,8 @@ class _VerifyPageState extends State<VerifyPage> {
                           return Column(
                             children: [
                               PinCodeText(
-                                onComplete: () => _verifyCode(state.email),
-                                errorAnimationController: errorController,
+                                onComplete: () => _verifyCode(state.email!),
+                                errorAnimationController: errorController!,
                                 controller: _codeUserController,
                                 length: 6,
                                 width: 45,
@@ -114,7 +114,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               ),
                               SizedBox(height: 10),
                               ElevatedButton(
-                                onPressed: () => _resendCode(state.email),
+                                onPressed: () => _resendCode(state.email!),
                                 child: Text(text.resend_code),
                               ),
                             ],
@@ -138,15 +138,13 @@ class _VerifyPageState extends State<VerifyPage> {
 
     if (checkTextControllers([code])) {
       try {
-        await Amplify.Auth.confirmSignUp(
-          username: email,
-          confirmationCode: code,
-        );
+        final cognitoUser = CognitoUser(email, userPool);
+        await cognitoUser.confirmRegistration(code);
 
-        showSnackBar(context, text.verify_confirm, 'success');
+        showSnackBar(context, text!.verify_confirm, 'success');
         await Navigator.pushReplacementNamed(context, '/');
-      } on AuthException catch (e) {
-        showSnackBar(context, e.message, 'error');
+      } catch (e) {
+        showSnackBar(context, e.toString(), 'error');
       }
     }
   }
@@ -155,10 +153,11 @@ class _VerifyPageState extends State<VerifyPage> {
     final text = AppLocalizations.of(context);
 
     try {
-      await Amplify.Auth.resendSignUpCode(username: email);
-      showSnackBar(context, text.code_sent, 'success');
-    } on AuthException catch (e) {
-      showSnackBar(context, e.message, 'error');
+      final cognitoUser = CognitoUser(email, userPool);
+      await cognitoUser.resendConfirmationCode();
+      showSnackBar(context, text!.code_sent, 'success');
+    } catch (e) {
+      showSnackBar(context, e.toString(), 'error');
     }
   }
 }
