@@ -43,6 +43,21 @@ To add a splash screen follow the next steps:
 for the splash screen for the different options (Android, iOS, etc).
 - Finally run your application and you will see the splash screen created.
 
+## Additional files
+
+### Cognito credentials
+
+This project uses cognito to do the authentication part. To use this service add
+a file called ```cognito_credentials.dart``` in the lib folder, then inside the file copy and
+paste this configuration: 
+
+```dart
+const poolId = "POOLID";
+const appId = "APPID";
+```
+
+Change the POOLI and APPID variables with your specific user pool configuration. Finally, 
+run ```flutter pug get```, and then your project should be working on your device or emulator.
 ## Support
 
 A few resources to get you started if this is your first Flutter project:
