@@ -33,5 +33,15 @@
   "change_password": "Change password",
   "password_changed": "The password was changed successfully",
   "fields_required": "You must complete all the fields",
-  "password_must_be_same": "The passwords must be the same"
+  "password_must_be_same": "The passwords must be the same",
+  "task_added": "Task Added",
+  "task_edit": "Task edited",
+  "something_wrong": "Something went wrong",
+  "edit": "Edit",
+  "delete": "Delete",
+  "task_deleted": "Task deleted",
+  "new_task": "New task",
+  "edit_task": "Edit task",
+  "firebase_crud": "Firebase CRUD",
+  "home": "Home"
 }
