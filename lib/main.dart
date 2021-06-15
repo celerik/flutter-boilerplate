@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // @scripts
+import 'package:flutter_boilerplate/business_logic/bloc/firebase_state/firebase_bloc.dart';
 import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 import 'package:flutter_boilerplate/screens/forgot_password/forgot_password.dart';
 import 'package:flutter_boilerplate/screens/verify_code/verify_code.dart';
@@ -31,6 +32,7 @@ class AppState extends StatelessWidget {
       providers: [
         BlocProvider<BasicStateBloc>(create: (_) => BasicStateBloc()),
         BlocProvider<UserAuthStateBloc>(create: (_) => UserAuthStateBloc()),
+        BlocProvider<FirebaseBloc>(create: (_) => FirebaseBloc()),
       ],
       child: FlutterBaseline(),
     );

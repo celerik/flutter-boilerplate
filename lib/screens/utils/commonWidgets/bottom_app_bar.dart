@@ -1,5 +1,8 @@
 // @packages
 import 'package:flutter/material.dart';
+
+// @scripts
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/screens/home_page/home_page.dart';
 import 'package:flutter_boilerplate/screens/second_page/second_page.dart';
 
@@ -20,20 +23,22 @@ class _BottomAppBar extends State<BottomAppBarContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context);
+
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
         children: _widgetOptions,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Widget 1',
+            label: text!.home,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.note),
-            label: 'Widget 2',
+            label: text!.firebase_crud,
           ),
         ],
         currentIndex: _selectedIndex,
