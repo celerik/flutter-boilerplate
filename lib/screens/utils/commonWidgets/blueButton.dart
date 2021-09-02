@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 
-class BotonAzul extends StatelessWidget {
+class BlueButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double sizeWidth;
-  const BotonAzul(
+  const BlueButton(
       {required this.text,
       required this.onPressed,
       this.sizeWidth = double.infinity});
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 2,
-      highlightElevation: 5,
-      color: Colors.blue,
-      shape: StadiumBorder(),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 2,
+        onPrimary: Colors.blue,
+        shape: StadiumBorder(),
+      ),
       onPressed: onPressed,
       child: Container(
         width: sizeWidth,

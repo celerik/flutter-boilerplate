@@ -5,7 +5,7 @@ import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart
 import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
 
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                       style: const TextStyle(fontSize: 20)),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: BotonAzul(
+                    child: BlueButton(
                         sizeWidth: size.width * 0.5,
                         text: text.second_screen,
                         onPressed: () => {}),

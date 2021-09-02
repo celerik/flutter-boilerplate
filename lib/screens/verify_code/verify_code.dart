@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
 import 'package:flutter_boilerplate/screens/sign_up_screen/pin_code_text.dart';
@@ -122,7 +122,7 @@ class _VerifyPageState extends State<VerifyPage> {
                                 borderRadius: 20,
                               ),
                               SizedBox(height: 10),
-                              BotonAzul(
+                              BlueButton(
                                   text: text.resend_code,
                                   onPressed: () {
                                     _resendCode(state.email!);

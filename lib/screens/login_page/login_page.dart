@@ -6,7 +6,7 @@ import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
 
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/labels.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
@@ -35,9 +35,9 @@ class _LoginPageState extends State<LoginPage> {
                     Logo(),
                     _Form(),
                     Labels(
-                      ruta: '/signUp',
-                      titulo: S.of(context).do_not_have_account,
-                      subTitulo: S.of(context).sign_up,
+                      path: '/signUp',
+                      title: S.of(context).do_not_have_account,
+                      subheading: S.of(context).sign_up,
                     ),
                     Text(
                       S.of(context).terms_and_conditions,
@@ -90,7 +90,7 @@ class __FormState extends State<_Form> {
               textController: _passwordController,
               isPassword: true,
             ),
-            BotonAzul(
+            BlueButton(
               text: S.of(context).login,
               onPressed: _login,
             ),

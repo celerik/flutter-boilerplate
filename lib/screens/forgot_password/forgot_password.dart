@@ -7,7 +7,7 @@ import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
@@ -44,7 +44,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        width: double.infinity,
+        width: size.width,
         child: CustomPaint(
           painter: HeaderPainter(),
           child: Column(
@@ -126,7 +126,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ],
                 )
               : SizedBox.shrink(),
-          BotonAzul(
+          BlueButton(
               text: !_showOtherFields ? text!.send_code : text!.change_password,
               onPressed: _recoverPassword)
         ],

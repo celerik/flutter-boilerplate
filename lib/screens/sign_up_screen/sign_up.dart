@@ -6,7 +6,7 @@ import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/labels.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
@@ -117,7 +117,7 @@ class __FormState extends State<_Form> {
               keyboardType: TextInputType.phone,
               textController: _phoneNumberController,
             ),
-            BotonAzul(
+            BlueButton(
               text: text.sign_up,
               onPressed: _signUp,
             )

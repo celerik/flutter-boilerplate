@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Labels extends StatelessWidget {
-  final String ruta;
-  final String titulo;
-  final String subTitulo;
+  final String path;
+  final String title;
+  final String subheading;
 
   const Labels({
-    required this.ruta,
-    required this.titulo,
-    required this.subTitulo,
+    required this.path,
+    required this.title,
+    required this.subheading,
   });
 
   @override
@@ -16,20 +16,20 @@ class Labels extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          Text(this.titulo,
+          Text(this.title,
               style: TextStyle(
                   color: Colors.black54,
                   fontSize: 15,
                   fontWeight: FontWeight.w300)),
           SizedBox(height: 10),
           GestureDetector(
-            child: Text(this.subTitulo,
+            child: Text(this.subheading,
                 style: TextStyle(
                     color: Colors.blue[600],
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
             onTap: () {
-              Navigator.pushNamed(context, this.ruta);
+              Navigator.pushNamed(context, this.path);
             },
           )
         ],
