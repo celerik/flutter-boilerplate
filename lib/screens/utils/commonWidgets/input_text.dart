@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //@scripts
 import 'package:flutter_boilerplate/business_logic/utils/regex.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_boilerplate/generated/l10n.dart';
 
 class InputText extends StatefulWidget {
   final String labelString;
@@ -63,8 +63,9 @@ class _InputText extends State<InputText> {
 
   @override
   Widget build(BuildContext context) {
-    final border = OutlineInputBorder(borderSide: BorderSide(color: widget.backgroundColor));
-    final configText = AppLocalizations.of(context);
+    final border = OutlineInputBorder(
+        borderSide: BorderSide(color: widget.backgroundColor));
+    final configText = S.of(context);
 
     return Container(
       width: widget.width - 20,
@@ -76,8 +77,9 @@ class _InputText extends State<InputText> {
           : EdgeInsets.only(left: 15, right: 15, top: 10),
       decoration: BoxDecoration(
         color: widget.backgroundColor,
-        border:
-            Border.all(color: !_inputError ? widget.borderColor : CustomColors().error, width: 2),
+        border: Border.all(
+            color: !_inputError ? widget.borderColor : CustomColors().error,
+            width: 2),
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       child: TextFormField(
@@ -116,18 +118,25 @@ class _InputText extends State<InputText> {
         keyboardType: widget.keyboardType,
         decoration: InputDecoration(
           labelText: !_inputError ? widget.labelString : errorText,
-          labelStyle: !_inputError ? widget.labelStyle : TextStyle(color: CustomColors().error),
+          labelStyle: !_inputError
+              ? widget.labelStyle
+              : TextStyle(color: CustomColors().error),
           focusedBorder: border,
           border: border,
           enabledBorder: border,
           suffixIcon: widget.keyboardType == TextInputType.visiblePassword
               ? IconButton(
-                  padding: _focus.hasFocus || text.isNotEmpty ? EdgeInsets.only() : EdgeInsets.zero,
+                  padding: _focus.hasFocus || text.isNotEmpty
+                      ? EdgeInsets.only()
+                      : EdgeInsets.zero,
                   icon: Icon(
-                    !_showPassword ? Icons.remove_red_eye : Icons.visibility_off,
+                    !_showPassword
+                        ? Icons.remove_red_eye
+                        : Icons.visibility_off,
                     color: CustomColors().inputLabel,
                   ),
-                  onPressed: () => setState(() => _showPassword = !_showPassword),
+                  onPressed: () =>
+                      setState(() => _showPassword = !_showPassword),
                 )
               : null,
         ),

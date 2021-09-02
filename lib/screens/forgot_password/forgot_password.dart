@@ -5,8 +5,12 @@ import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart
 
 // @scripts
 import 'package:flutter_boilerplate/config/colors/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_boilerplate/generated/l10n.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
 
@@ -36,29 +40,37 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context);
-
+    final text = S.of(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: CustomColors().background,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          minimum: EdgeInsets.symmetric(horizontal: 20),
-          child: Container(
-            padding: EdgeInsets.only(top: 140),
-            child: Column(
-              children: [
-                Text(
-                  text!.recover_password,
-                  style: TextStyle(
-                    fontSize: 37,
-                    fontWeight: FontWeight.bold,
+      body: Container(
+        width: double.infinity,
+        child: CustomPaint(
+          painter: HeaderPainter(),
+          child: Column(
+            children: [
+              Logo(),
+              Container(
+                padding: EdgeInsets.only(top: size.height * 0.14),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(
+                        text.recover_password,
+                        style: TextStyle(
+                          fontSize: size.height * 0.028,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.014),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: _forgotPasswordForm())
+                    ],
                   ),
                 ),
-                SizedBox(height: 10),
-                _forgotPasswordForm(),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -66,11 +78,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Widget _forgotPasswordForm() {
-    final text = AppLocalizations.of(context);
+    final text = S.of(context);
 
     String? commonValidator(String value) {
       if (value.isEmpty) {
-        return text!.empty_value;
+        return text.empty_value;
       }
       return null;
     }
@@ -81,69 +93,42 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           !_showOtherFields
-              ? InputText(
-                  controller: _usernameController,
-                  labelString: text!.email,
-                  backgroundColor: CustomColors().inputBackground,
+              ? CustomInput(
+                  icon: Icons.mail_outline,
+                  placeholder: S.of(context).email,
                   keyboardType: TextInputType.emailAddress,
-                  borderColor: CustomColors().inputBorder,
-                  labelStyle: TextStyle(color: CustomColors().inputLabel),
-                  textStyle: TextStyle(color: CustomColors().black),
-                  height: 45,
-                  width: MediaQuery.of(context).size.width,
+                  textController: _usernameController,
                 )
               : SizedBox.shrink(),
-          SizedBox(height: 10),
           _showOtherFields
               ? Column(
                   children: [
-                    InputText(
-                      controller: _codeController,
-                      labelString: text!.code,
-                      backgroundColor: CustomColors().inputBackground,
+                    CustomInput(
+                      icon: Icons.message,
+                      placeholder: S.of(context).code,
                       keyboardType: TextInputType.number,
-                      borderColor: CustomColors().inputBorder,
-                      labelStyle: TextStyle(color: CustomColors().inputLabel),
-                      textStyle: TextStyle(color: CustomColors().black),
-                      height: 45,
-                      width: MediaQuery.of(context).size.width,
-                      validator: commonValidator,
+                      textController: _codeController,
                     ),
                     SizedBox(height: 10),
-                    InputText(
-                      controller: _passwordController,
-                      labelString: text.password,
-                      backgroundColor: CustomColors().inputBackground,
-                      keyboardType: TextInputType.visiblePassword,
-                      borderColor: CustomColors().inputBorder,
-                      labelStyle: TextStyle(color: CustomColors().inputLabel),
-                      textStyle: TextStyle(color: CustomColors().black),
-                      height: 45,
-                      obscureText: true,
-                      width: MediaQuery.of(context).size.width,
-                      validator: commonValidator,
+                    CustomInput(
+                      icon: Icons.password,
+                      placeholder: S.of(context).password,
+                      textController: _passwordController,
+                      isPassword: true,
                     ),
                     SizedBox(height: 10),
-                    InputText(
-                      controller: _passwordVerificationController,
-                      labelString: text.confirm_password,
-                      backgroundColor: CustomColors().inputBackground,
-                      keyboardType: TextInputType.visiblePassword,
-                      borderColor: CustomColors().inputBorder,
-                      labelStyle: TextStyle(color: CustomColors().inputLabel),
-                      textStyle: TextStyle(color: CustomColors().black),
-                      height: 45,
-                      obscureText: true,
-                      width: MediaQuery.of(context).size.width,
-                      validator: commonValidator,
+                    CustomInput(
+                      icon: Icons.password,
+                      placeholder: S.of(context).confirm_password,
+                      textController: _passwordVerificationController,
+                      isPassword: true,
                     ),
                   ],
                 )
               : SizedBox.shrink(),
-          ElevatedButton(
-            onPressed: _recoverPassword,
-            child: Text(!_showOtherFields ? text!.send_code : text!.change_password),
-          )
+          BotonAzul(
+              text: !_showOtherFields ? text!.send_code : text!.change_password,
+              onPressed: _recoverPassword)
         ],
       ),
     );
@@ -154,10 +139,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     final password = _passwordController.text.trim();
     final passwordConfirmation = _passwordVerificationController.text.trim();
     final code = _codeController.text.trim();
-    final text = AppLocalizations.of(context);
+    final text = S.of(context);
 
     if (!_showOtherFields && checkTextControllers([email]) ||
-        _showOtherFields && checkTextControllers([code, password, passwordConfirmation])) {
+        _showOtherFields &&
+            checkTextControllers([code, password, passwordConfirmation])) {
       try {
         final cognitoUser = CognitoUser(email, userPool);
 

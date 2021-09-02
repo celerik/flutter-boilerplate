@@ -1,28 +1,59 @@
-// @packages
-import 'dart:io';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// @scripts
-import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
-import 'package:flutter_boilerplate/config/colors/colors.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/input_text.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
+import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 import 'package:flutter_boilerplate/business_logic/utils/functions.dart';
+import 'package:flutter_boilerplate/generated/l10n.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/boton_azul.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/labels.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
-
+class RegisterPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SignUpPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final _userNameController = TextEditingController();
+class _RegisterPageState extends State<RegisterPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color(0xffF2F2F2),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: CustomPaint(
+              painter: HeaderPainter(),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Logo(),
+                    _Form(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.015,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+}
+
+class _Form extends StatefulWidget {
+  @override
+  __FormState createState() => __FormState();
+}
+
+class __FormState extends State<_Form> {
   final _lastNameController = TextEditingController();
+  final _userNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -42,150 +73,63 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context);
-
-    return Scaffold(
-      backgroundColor: CustomColors().background,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          minimum: EdgeInsets.symmetric(horizontal: 40),
-          child: Container(
-            padding: EdgeInsets.only(top: 50),
-            child: Column(children: [
-              Text(
-                text!.sign_up_title,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              // Sign Up Form
-              _signUpForm(),
-              // Login Button
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await Navigator.pushReplacementNamed(context, '/');
-                  },
-                  child: Text(text.already_account),
-                ),
-              )
-            ]),
-          ),
+    final text = S.of(context);
+    return Container(
+      margin: EdgeInsets.only(top: 40),
+      padding: EdgeInsets.symmetric(horizontal: 50),
+      child: Form(
+        key: _formSignKey,
+        child: Column(
+          children: <Widget>[
+            CustomInput(
+              icon: Icons.perm_identity,
+              placeholder: text.user_name,
+              keyboardType: TextInputType.text,
+              textController: _userNameController,
+            ),
+            CustomInput(
+              icon: Icons.perm_identity,
+              placeholder: text.last_name,
+              keyboardType: TextInputType.text,
+              textController: _lastNameController,
+            ),
+            CustomInput(
+              icon: Icons.mail_outline,
+              placeholder: text.email,
+              keyboardType: TextInputType.emailAddress,
+              textController: _emailController,
+            ),
+            CustomInput(
+              icon: Icons.lock_outline,
+              placeholder: text.password,
+              textController: _passwordController,
+              isPassword: true,
+            ),
+            CustomInput(
+              icon: Icons.lock_outline,
+              placeholder: text.confirm_password,
+              textController: _confirmPasswordController,
+              isPassword: true,
+            ),
+            CustomInput(
+              icon: Icons.phone,
+              placeholder: text.phone_number,
+              keyboardType: TextInputType.phone,
+              textController: _phoneNumberController,
+            ),
+            BotonAzul(
+              text: text.sign_up,
+              onPressed: _signUp,
+            )
+          ],
         ),
       ),
     );
   }
 
-  Widget _signUpForm() {
-    final text = AppLocalizations.of(context);
-
-    String? commonValidator(String value) {
-      if (value.isEmpty) {
-        return text!.empty_value;
-      }
-      return null;
-    }
-
-    return Form(
-      key: _formSignKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 5),
-          InputText(
-            controller: _userNameController,
-            labelString: text!.user_name,
-            keyboardType: TextInputType.name,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _lastNameController,
-            labelString: text.last_name,
-            keyboardType: TextInputType.name,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _emailController,
-            labelString: text.email,
-            keyboardType: TextInputType.emailAddress,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _phoneNumberController,
-            labelString: text.phone_number,
-            keyboardType: TextInputType.phone,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _passwordController,
-            labelString: text.password,
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: true,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          InputText(
-            controller: _confirmPasswordController,
-            labelString: text.confirm_password,
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: true,
-            backgroundColor: CustomColors().inputBackground,
-            borderColor: CustomColors().inputBorder,
-            labelStyle: TextStyle(color: CustomColors().inputLabel),
-            textStyle: TextStyle(color: CustomColors().black),
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            validator: commonValidator,
-          ),
-          SizedBox(height: 5),
-          ElevatedButton(
-            onPressed: _signUp,
-            child: Text(text.sign_up),
-          )
-        ],
-      ),
-    );
-  }
-
   Future<void> _signUp() async {
-    final text = AppLocalizations.of(context);
+    print('entra');
+    final text = S.of(context);
     final username = _userNameController.text.trim();
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
@@ -207,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
         );
 
         userAuthBloc.add(AddUserState(email: email, userName: username));
-        showSnackBar(context, text!.sign_up_success, 'success');
+        showSnackBar(context, text.sign_up_success, 'success');
         await Navigator.pushNamed(context, '/verifyAccount');
       } catch (e) {
         showSnackBar(context, e.toString(), 'error');

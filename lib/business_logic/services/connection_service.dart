@@ -2,9 +2,9 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_boilerplate/generated/l10n.dart';
 
 // @scripts
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
 
 class ConnectivityService {
@@ -12,7 +12,7 @@ class ConnectivityService {
       StreamController<ConnectivityResult>();
 
   ConnectivityService(BuildContext context) {
-    final text = AppLocalizations.of(context);
+    final text = S.of(context);
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       connectionStatusController.add(result);
 
