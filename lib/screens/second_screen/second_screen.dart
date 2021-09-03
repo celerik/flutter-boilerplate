@@ -1,9 +1,9 @@
 // @packages
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/generated/l10n.dart';
 
 // @scripts
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/basic_state/basic_state_bloc.dart';
 
 class SecondScreen extends StatelessWidget {
@@ -12,7 +12,7 @@ class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calculatorBloc = BlocProvider.of<BasicStateBloc>(context);
-    final text = AppLocalizations.of(context);
+    final text = S.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +33,8 @@ class SecondScreen extends StatelessWidget {
               child: Text(text.increment),
             ),
             BlocBuilder<BasicStateBloc, BasicState>(builder: (context, state) {
-              return Text('Counter: ${state.number}', style: TextStyle(fontSize: 20));
+              return Text('Counter: ${state.number}',
+                  style: TextStyle(fontSize: 20));
             }),
           ],
         ),

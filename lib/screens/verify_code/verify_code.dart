@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // @scripts
 import 'package:flutter_boilerplate/business_logic/services/cognito_service.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_boilerplate/generated/l10n.dart';
+import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_auth_state_bloc.dart';
 import 'package:flutter_boilerplate/screens/sign_up_screen/pin_code_text.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
@@ -40,8 +42,8 @@ class _VerifyPageState extends State<VerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context);
-
+    final text = S.of(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: CustomColors().appBar,
       body: SingleChildScrollView(
@@ -51,8 +53,10 @@ class _VerifyPageState extends State<VerifyPage> {
             decoration: BoxDecoration(
               color: CustomColors().background,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
+                topLeft:
+                    Radius.circular(MediaQuery.of(context).size.height * 0.02),
+                topRight:
+                    Radius.circular(MediaQuery.of(context).size.height * 0.02),
               ),
             ),
             child: Column(
@@ -61,15 +65,20 @@ class _VerifyPageState extends State<VerifyPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 8),
-                      width: 50,
+                      margin: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.001),
+                      width: MediaQuery.of(context).size.width * 0.2,
                       child: ElevatedButton(
                         onPressed: () => Navigator.pop(context),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(CustomColors().white),
+                          backgroundColor:
+                              MaterialStateProperty.all(CustomColors().white),
                           elevation: MaterialStateProperty.all(0),
                         ),
-                        child: Text('X', style: TextStyle(color: CustomColors().black),),
+                        child: Text(
+                          text.skyp,
+                          style: TextStyle(color: CustomColors().black),
+                        ),
                       ),
                     )
                   ],
@@ -113,10 +122,12 @@ class _VerifyPageState extends State<VerifyPage> {
                                 borderRadius: 20,
                               ),
                               SizedBox(height: 10),
-                              ElevatedButton(
-                                onPressed: () => _resendCode(state.email!),
-                                child: Text(text.resend_code),
-                              ),
+                              BlueButton(
+                                  sizeWidth: size.width,
+                                  text: text.resend_code,
+                                  onPressed: () {
+                                    _resendCode(state.email!);
+                                  })
                             ],
                           );
                         },
@@ -133,7 +144,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   Future<void> _verifyCode(String email) async {
-    final text = AppLocalizations.of(context);
+    final text = S.of(context);
     final code = _codeUserController.text.trim();
 
     if (checkTextControllers([code])) {
@@ -150,7 +161,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   Future<void> _resendCode(String email) async {
-    final text = AppLocalizations.of(context);
+    final text = S.of(context);
 
     try {
       final cognitoUser = CognitoUser(email, userPool);
