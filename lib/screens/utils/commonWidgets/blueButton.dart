@@ -5,9 +5,7 @@ class BlueButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double sizeWidth;
   const BlueButton(
-      {required this.text,
-      required this.onPressed,
-      this.sizeWidth = double.infinity});
+      {required this.text, required this.onPressed, required this.sizeWidth});
 
   @override
   Widget build(BuildContext context) {

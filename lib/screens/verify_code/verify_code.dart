@@ -43,7 +43,7 @@ class _VerifyPageState extends State<VerifyPage> {
   @override
   Widget build(BuildContext context) {
     final text = S.of(context);
-
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: CustomColors().appBar,
       body: SingleChildScrollView(
@@ -123,6 +123,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               ),
                               SizedBox(height: 10),
                               BlueButton(
+                                  sizeWidth: size.width,
                                   text: text.resend_code,
                                   onPressed: () {
                                     _resendCode(state.email!);

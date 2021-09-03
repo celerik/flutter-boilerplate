@@ -79,7 +79,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   Widget _forgotPasswordForm() {
     final text = S.of(context);
-
+    final size = MediaQuery.of(context).size;
     String? commonValidator(String value) {
       if (value.isEmpty) {
         return text.empty_value;
@@ -127,6 +127,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 )
               : SizedBox.shrink(),
           BlueButton(
+              sizeWidth: size.width,
               text: !_showOtherFields ? text!.send_code : text!.change_password,
               onPressed: _recoverPassword)
         ],

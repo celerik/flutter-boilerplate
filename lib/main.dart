@@ -54,7 +54,7 @@ class FlutterBaseline extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => ForgotPassword(),
+        '/': (context) => Root(),
         '/secondScreen': (context) => const SecondScreen(),
         '/signUp': (context) => RegisterPage(),
         '/login': (context) => LoginPage(),

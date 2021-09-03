@@ -20,6 +20,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Color(0xffF2F2F2),
         body: SafeArea(
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
             child: CustomPaint(
               painter: HeaderPainter(),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.9,
+                height: size.height * 0.9,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -91,6 +92,7 @@ class __FormState extends State<_Form> {
               isPassword: true,
             ),
             BlueButton(
+              sizeWidth: size.width,
               text: S.of(context).login,
               onPressed: _login,
             ),

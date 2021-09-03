@@ -74,6 +74,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final text = S.of(context);
+    final size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -118,6 +119,7 @@ class __FormState extends State<_Form> {
               textController: _phoneNumberController,
             ),
             BlueButton(
+              sizeWidth: size.width,
               text: text.sign_up,
               onPressed: _signUp,
             )
