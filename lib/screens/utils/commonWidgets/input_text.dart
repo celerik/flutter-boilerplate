@@ -98,7 +98,7 @@ class _InputText extends State<InputText> {
               final regex = RegExp(RegexExpressions().emailPattern);
               if (!regex.hasMatch(value)) {
                 setState(() {
-                  errorText = configText!.valid_email_regex;
+                  errorText = configText.valid_email_regex;
                   _inputError = true;
                 });
               }

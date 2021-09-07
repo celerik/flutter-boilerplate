@@ -31,10 +31,13 @@ dependencies:
   flutter_bloc: ^7.0.0
   http_interceptor: ^0.4.1
   pedantic: ^1.11.0
+  http:
+  flutter_dotenv: ^5.0.2
   pin_code_fields: ^7.0.0
   shared_preferences: ^2.0.5
   flutter_native_splash: ^1.1.8+4
   amazon_cognito_identity_dart_2: ^1.0.3
+  rxdart: ^0.27.2
 
 flutter_native_splash:
   color: '#0F142B'
@@ -60,6 +63,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - .env
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

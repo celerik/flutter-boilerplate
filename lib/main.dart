@@ -6,7 +6,6 @@ import 'package:flutter_boilerplate/screens/login_page/login_page.dart';
 import 'package:provider/provider.dart';
 // @scripts
 import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
-import 'package:flutter_boilerplate/providers/localProvider.dart';
 import 'package:flutter_boilerplate/screens/forgot_password/forgot_password.dart';
 import 'package:flutter_boilerplate/screens/verify_code/verify_code.dart';
 import 'package:flutter_boilerplate/config/theme/theme.dart';
@@ -18,10 +17,15 @@ import 'package:flutter_boilerplate/business_logic/bloc/user_auth_state/user_aut
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'generated/l10n.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs().init();
+  await dotenv.load(
+      fileName:
+          ".env"); // mergeWith optional, you can include Platform.environment for Mobile/Desktop app
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeChanger(),
@@ -50,7 +54,6 @@ class FlutterBaseline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocaleProvider().setLocale();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {

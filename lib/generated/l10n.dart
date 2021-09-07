@@ -419,6 +419,26 @@ class S {
       args: [],
     );
   }
+
+  /// `{error}`
+  String error_api_respose(Object error) {
+    return Intl.message(
+      '$error',
+      name: 'error_api_respose',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Loading...`
+  String get loading {
+    return Intl.message(
+      'Loading...',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

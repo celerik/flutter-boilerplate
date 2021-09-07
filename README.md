@@ -58,6 +58,12 @@ const appId = "APPID";
 
 Change the POOLI and APPID variables with your specific user pool configuration. Finally, 
 run ```flutter pug get```, and then your project should be working on your device or emulator.
+
+### Enviroment File
+
+Create file in path directory ".env", example file with name ".env_example"
+
+
 ## Support
 
 A few resources to get you started if this is your first Flutter project:

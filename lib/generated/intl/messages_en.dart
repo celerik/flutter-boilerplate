@@ -19,6 +19,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(error) => "${error}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "already_account": MessageLookupByLibrary.simpleMessage(
@@ -35,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email address"),
         "empty_value":
             MessageLookupByLibrary.simpleMessage("Value Cannot Be Empty"),
+        "error_api_respose": m0,
         "fields_required": MessageLookupByLibrary.simpleMessage(
             "You must complete all the fields"),
         "forgot_password":
@@ -43,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Go to second screen"),
         "increment": MessageLookupByLibrary.simpleMessage("Increment"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_message":
             MessageLookupByLibrary.simpleMessage("Flutter baseline"),
