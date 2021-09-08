@@ -19,20 +19,9 @@ class TodoApi {
 
   TodoApi();
   String baseUrl = ApiProvider().baseUrl;
-  final Map<String, String> requestHeaders = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': ApiProvider().jwt
-  };
-  Future<TodoList> exampleFetch() async {
-    final response = await client!.get(Uri.parse(Constants().apiUrl));
-    final parsedData = TodoList.fromJson(json.decode(response.body));
-    return parsedData;
-  }
 
   Future<List<TodoList>> getTodoList() async {
-    final response = await client!
-        .get(Uri.parse('${baseUrl}/to-do-lists'), headers: requestHeaders);
+    final response = await client.get(Uri.parse('${baseUrl}/to-do-lists'));
 
     if (response.statusCode == 200) {
       List<TodoList> listOfTodo(String str) => List<TodoList>.from(

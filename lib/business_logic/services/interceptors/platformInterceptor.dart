@@ -1,3 +1,5 @@
+// ignore: file_names
+
 import 'package:flutter_boilerplate/providers/api_provider.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
