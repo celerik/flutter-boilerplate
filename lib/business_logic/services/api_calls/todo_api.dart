@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'package:flutter_boilerplate/business_logic/services/interceptors/platformInterceptor.dart';
 import 'package:flutter_boilerplate/business_logic/services/models/todolist.dart';
-import 'package:flutter_boilerplate/providers/api_provider.dart';
+import 'package:flutter_boilerplate/business_logic/services/providers/api_provider.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_client_with_interceptor.dart';
 

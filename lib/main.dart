@@ -41,8 +41,12 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<BasicStateBloc>(create: (_) => BasicStateBloc()),
-        BlocProvider<UserAuthStateBloc>(create: (_) => UserAuthStateBloc()),
+        BlocProvider<BasicStateBloc>(
+          create: (_) => BasicStateBloc(),
+        ),
+        BlocProvider<UserAuthStateBloc>(
+          create: (_) => UserAuthStateBloc(),
+        ),
       ],
       child: FlutterBaseline(),
     );
@@ -57,7 +61,7 @@ class FlutterBaseline extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => Root(),
+        '/': (context) => LoginPage(),
         '/secondScreen': (context) => const SecondScreen(),
         '/signUp': (context) => RegisterPage(),
         '/login': (context) => LoginPage(),

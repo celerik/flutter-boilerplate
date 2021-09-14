@@ -7,75 +7,115 @@ import 'package:flutter_boilerplate/business_logic/services/models/todolist.dart
 import 'package:flutter_boilerplate/business_logic/services/shared_preferences.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dart';
-import 'package:flutter_boilerplate/screens/utils/commonWidgets/blueButton.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
 
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
+import 'package:flutter_boilerplate/screens/utils/responsive.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final todoBloc = ToDoListBloc();
+  final callTodoFetch = ToDoListState();
+  @override
+  void initState() {
+    super.initState();
+    _loadAlbums();
+  }
+
+  _loadAlbums() async {
+    await ToDoListState().fetchTodo();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final todoBloc = ToDoListBloc();
-    final callTodoFetch = todoBloc.fetchTodo();
     final text = S.of(context);
     final size = MediaQuery.of(context).size;
+    final responsive = Responsive.of(context);
     return Scaffold(
       body: CustomPaint(
         painter: HeaderPainter(),
         child: Container(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Logo()],
+              Logo(
+                width: responsive.dp(18),
               ),
               SizedBox(
-                height: size.height * 0.02,
+                height: responsive.dp(1.9),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                      child: Icon(Icons.logout, color: Colors.white))
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    child: Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                      size: responsive.dp(3),
+                    ),
+                  )
                 ],
               ),
               SizedBox(
                 height: size.height * 0.04,
               ),
-              Container(
-                  width: size.width,
-                  height: size.height * 0.76,
-                  child: StreamBuilder(
-                      stream: todoBloc.todoListStream,
-                      builder:
-                          (context, AsyncSnapshot<List<TodoList>> snapshot) {
-                        var data = snapshot.data;
-
-                        if (!snapshot.hasData) {
-                          return Container(
-                            child: Center(child: Text(text.loading)),
+              FutureBuilder(
+                future: callTodoFetch.fetchTodo(),
+                builder: (_, AsyncSnapshot<List<TodoList>> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Container(
+                        width: size.width,
+                        height: size.height * 0.76,
+                        child: Center(
+                          child: Text(text.loading),
+                        ),
+                      ),
+                    );
+                  }
+                  return Container(
+                    width: size.width,
+                    height: size.height * 0.76,
+                    child: SingleChildScrollView(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, int index) {
+                          return ListTile(
+                            leading: Icon(
+                              Icons.book,
+                              size: responsive.dp(3),
+                            ),
+                            title: Text(
+                              snapshot.data![index].title,
+                              style: TextStyle(
+                                fontSize: responsive.dp(1.8),
+                              ),
+                            ),
+                            subtitle: Text(
+                              snapshot.data![index].description,
+                              style: TextStyle(
+                                fontSize: responsive.dp(1.6),
+                              ),
+                            ),
+                            onTap: () {
+                              /* react to the tile being tapped */
+                            },
                           );
-                        }
-                        return SingleChildScrollView(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: data?.length,
-                              itemBuilder: (context, int index) {
-                                return ListTile(
-                                    leading: Icon(Icons.book),
-                                    title: Text(data![index].title),
-                                    subtitle: Text(data![index].description),
-                                    onTap: () {
-                                      /* react to the tile being tapped */
-                                    });
-                              }),
-                        );
-                      })),
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
