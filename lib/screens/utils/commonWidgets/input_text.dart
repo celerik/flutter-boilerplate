@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //@scripts
 import 'package:flutter_boilerplate/business_logic/utils/regex.dart';
+import 'package:flutter_boilerplate/business_logic/utils/validators/validators.dart';
 import 'package:flutter_boilerplate/config/colors/colors.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 
@@ -95,8 +96,7 @@ class _InputText extends State<InputText> {
             setState(() => _inputError = true);
           } else {
             if (widget.keyboardType == TextInputType.emailAddress) {
-              final regex = RegExp(RegexExpressions().emailPattern);
-              if (!regex.hasMatch(value)) {
+              if (!CustomValidators().validateEmail(value)) {
                 setState(() {
                   errorText = configText.valid_email_regex;
                   _inputError = true;
