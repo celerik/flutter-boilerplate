@@ -11,6 +11,7 @@ import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dar
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/labels.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
+import 'package:flutter_boilerplate/screens/utils/providers/ThemeProvider.dart';
 import 'package:flutter_boilerplate/screens/utils/responsive.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     final responsive = Responsive.of(context);
     return Scaffold(
-      backgroundColor: Color(0xffF2F2F2),
+      backgroundColor: ThemeProvider().primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
