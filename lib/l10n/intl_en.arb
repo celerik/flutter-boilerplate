@@ -35,5 +35,7 @@
     "change_password": "Change password",
     "password_changed": "The password was changed successfully",
     "fields_required": "You must complete all the fields",
-    "password_must_be_same": "The passwords must be the same"
+    "password_must_be_same": "The passwords must be the same",
+    "error_api_respose" : "{error}",
+    "loading": "Loading..."
   }

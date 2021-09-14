@@ -11,6 +11,8 @@ import 'package:flutter_boilerplate/screens/utils/commonWidgets/custom_input.dar
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/labels.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
+import 'package:flutter_boilerplate/screens/utils/providers/ThemeProvider.dart';
+import 'package:flutter_boilerplate/screens/utils/responsive.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,35 +23,39 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final responsive = Responsive.of(context);
     return Scaffold(
-        backgroundColor: Color(0xffF2F2F2),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: CustomPaint(
-              painter: HeaderPainter(),
-              child: Container(
-                height: size.height * 0.9,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Logo(),
-                    _Form(),
-                    Labels(
-                      path: '/signUp',
-                      title: S.of(context).do_not_have_account,
-                      subheading: S.of(context).sign_up,
-                    ),
-                    Text(
-                      S.of(context).terms_and_conditions,
-                      style: TextStyle(fontWeight: FontWeight.w200),
-                    )
-                  ],
-                ),
+      backgroundColor: ThemeProvider().primaryColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: CustomPaint(
+            painter: HeaderPainter(),
+            child: Container(
+              height: size.height * 0.9,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Logo(
+                    width: responsive.dp(18),
+                  ),
+                  _Form(),
+                  Labels(
+                    path: '/signUp',
+                    title: S.of(context).do_not_have_account,
+                    subheading: S.of(context).sign_up,
+                  ),
+                  Text(
+                    S.of(context).terms_and_conditions,
+                    style: TextStyle(fontWeight: FontWeight.w200),
+                  )
+                ],
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
