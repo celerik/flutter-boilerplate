@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/screens/utils/providers/ThemeProvider.dart';
 
 class HeaderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = new Paint();
-    paint.color = Color(0xff0F142B);
+    paint.color = ThemeProvider().secondaryColor;
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 5;
 

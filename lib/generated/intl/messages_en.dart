@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("The code was resent"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "description": MessageLookupByLibrary.simpleMessage("description"),
         "do_not_have_account": MessageLookupByLibrary.simpleMessage(
             "Do not have an account? Sign up."),
         "email": MessageLookupByLibrary.simpleMessage("Email address"),
@@ -63,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resend_code": MessageLookupByLibrary.simpleMessage("Resend code"),
         "second_screen":
             MessageLookupByLibrary.simpleMessage("Second screen view"),
+        "send": MessageLookupByLibrary.simpleMessage("send"),
         "send_code": MessageLookupByLibrary.simpleMessage("Send code"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "sign_up_success": MessageLookupByLibrary.simpleMessage(
@@ -73,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms_and_conditions":
             MessageLookupByLibrary.simpleMessage("terms and Conditions"),
         "title": MessageLookupByLibrary.simpleMessage("My app"),
+        "titleTodo": MessageLookupByLibrary.simpleMessage("title"),
         "upload_photo":
             MessageLookupByLibrary.simpleMessage("Upload a profile photo"),
         "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
