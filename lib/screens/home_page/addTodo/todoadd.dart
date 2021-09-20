@@ -119,7 +119,7 @@ class _AddTodoState extends State<AddTodo> {
 
     if (checkTextControllers([title, description])) {
       try {
-        var response = await callTodoFetch.addTodo(title, description);
+        final response = await callTodoFetch.addTodo(title, description);
         if (response) {
           Navigator.pushNamed(context, '/');
         }
