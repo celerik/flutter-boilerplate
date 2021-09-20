@@ -8,6 +8,14 @@ class ToDoListState {
   Future<List<TodoList>> fetchTodo() async {
     List<TodoList> todoResponse = await todo.getTodoList();
     listTodo = todoResponse;
-    return todoResponse;
+    return todoResponse.reversed.toList();
+  }
+
+  Future<bool> addTodo(title, description) async {
+    bool todoResponse = await todo.addTodoList(title, description);
+    if (todoResponse) {
+      return true;
+    }
+    return false;
   }
 }

@@ -19,6 +19,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'screens/home_page/addTodo/todoadd.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs().init();
@@ -61,8 +63,8 @@ class FlutterBaseline extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => LoginPage(),
-        '/secondScreen': (context) => const SecondScreen(),
+        '/': (context) => Root(),
+        '/add': (context) => const AddTodo(),
         '/signUp': (context) => RegisterPage(),
         '/login': (context) => LoginPage(),
         '/verifyAccount': (context) => const VerifyPage(),

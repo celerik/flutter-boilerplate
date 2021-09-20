@@ -1,5 +1,6 @@
 // @packages
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/business_logic/services/interceptors/platformInterceptor.dart';
 import 'package:flutter_boilerplate/business_logic/services/models/todolist.dart';
 import 'package:flutter_boilerplate/business_logic/services/providers/api_provider.dart';
@@ -28,6 +29,22 @@ class TodoApi {
           json.decode(str).map((x) => TodoList.fromJson(x)));
 
       return listOfTodo(response.body);
+    } else {
+      throw Exception('Failed to load weather');
+    }
+  }
+
+  Future<bool> addTodoList(title, description) async {
+    final response = await client.post(
+      Uri.parse('${baseUrl}to-do-lists'),
+      body: json.encode({
+        'title': title,
+        'description': description,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
     } else {
       throw Exception('Failed to load weather');
     }

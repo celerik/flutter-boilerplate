@@ -10,6 +10,7 @@ import 'package:flutter_boilerplate/screens/utils/commonWidgets/CustomHeader.dar
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/logo.dart';
 
 import 'package:flutter_boilerplate/screens/utils/commonWidgets/snack_bar.dart';
+import 'package:flutter_boilerplate/screens/utils/providers/ThemeProvider.dart';
 import 'package:flutter_boilerplate/screens/utils/responsive.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,6 +39,13 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     final responsive = Responsive.of(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/add');
+        },
+        child: Icon(Icons.add),
+        backgroundColor: ThemeProvider().secondaryColor,
+      ),
       body: CustomPaint(
         painter: HeaderPainter(),
         child: Container(
@@ -84,34 +92,32 @@ class _HomePageState extends State<HomePage> {
                   return Container(
                     width: size.width,
                     height: size.height * 0.76,
-                    child: SingleChildScrollView(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, int index) {
-                          return ListTile(
-                            leading: Icon(
-                              Icons.book,
-                              size: responsive.dp(3),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: Icon(
+                            Icons.book,
+                            size: responsive.dp(3),
+                          ),
+                          title: Text(
+                            snapshot.data![index].title,
+                            style: TextStyle(
+                              fontSize: responsive.dp(1.8),
                             ),
-                            title: Text(
-                              snapshot.data![index].title,
-                              style: TextStyle(
-                                fontSize: responsive.dp(1.8),
-                              ),
+                          ),
+                          subtitle: Text(
+                            snapshot.data![index].description,
+                            style: TextStyle(
+                              fontSize: responsive.dp(1.6),
                             ),
-                            subtitle: Text(
-                              snapshot.data![index].description,
-                              style: TextStyle(
-                                fontSize: responsive.dp(1.6),
-                              ),
-                            ),
-                            onTap: () {
-                              /* react to the tile being tapped */
-                            },
-                          );
-                        },
-                      ),
+                          ),
+                          onTap: () {
+                            /* react to the tile being tapped */
+                          },
+                        );
+                      },
                     ),
                   );
                 },
