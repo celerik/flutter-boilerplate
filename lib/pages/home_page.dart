@@ -19,8 +19,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    print("HOOOOOOOLA 😸");
   }
 
   @override
@@ -34,6 +32,15 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider.value(
       value: this._bloc,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            'CelerikLocations',
+            style: TextStyle(color: Colors.black54),
+          ),
+        ),
         body: SafeArea(
           child: Container(
             width: double.infinity,
@@ -43,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                 if (!state.gpsEnabled) {
                   return Center(
                     child: Text(
-                      "Para utilizar la app active el GPS",
+                      "To use the app activate the GPS",
                       textAlign: TextAlign.center,
                     ),
                   );

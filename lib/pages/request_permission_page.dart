@@ -94,7 +94,7 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+                "Celerik requires location permission all the time to be able to run in the background without the app open",
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
