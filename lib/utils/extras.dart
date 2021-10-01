@@ -17,7 +17,7 @@ Future<Uint8List> loadAsset(
   );
 
   final ui.FrameInfo frame = await codec.getNextFrame();
-  data = await frame.image.toByteData(format: ui.ImageByteFormat.png);
+  data = (await frame.image.toByteData(format: ui.ImageByteFormat.png))!;
   return data.buffer.asUint8List();
 }
 
@@ -26,7 +26,7 @@ Future<Uint8List> loadImageFromNetwork(
   int width = 50,
   int height = 50,
 }) async {
-  final http.Response response = await http.get(url);
+  final http.Response response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     final Uint8List bytes = response.bodyBytes;
@@ -38,7 +38,7 @@ Future<Uint8List> loadImageFromNetwork(
 
     final ui.FrameInfo frame = await codec.getNextFrame();
     final data = await frame.image.toByteData(format: ui.ImageByteFormat.png);
-    return data.buffer.asUint8List();
+    return data!.buffer.asUint8List();
   }
   throw new Exception("download failed");
 }

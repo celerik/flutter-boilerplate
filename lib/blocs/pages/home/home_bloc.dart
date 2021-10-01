@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_permissions/location_permissions.dart';
 import 'home_events.dart';
 import 'home_state.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomeBloc extends Bloc<HomeEvents, HomeState> {
   Geolocator _geolocator = Geolocator();

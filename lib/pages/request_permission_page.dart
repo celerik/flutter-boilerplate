@@ -16,12 +16,12 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
@@ -58,8 +58,6 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
     print("status $status");
 
     switch (status) {
-      case PermissionStatus.undetermined:
-        break;
       case PermissionStatus.granted:
         this._goToHome();
         break;
@@ -101,12 +99,11 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
                 textAlign: TextAlign.center,
               ),
             ),
-            FlatButton(
+            TextButton(
               child: Text(
                 "allow",
                 style: TextStyle(color: Colors.white),
               ),
-              color: Colors.blue,
               onPressed: this._request,
             )
           ],

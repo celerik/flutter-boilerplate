@@ -10,15 +10,15 @@ class HomeState extends Equatable {
   final Map<PolygonId, Polygon> polygons;
 
   HomeState(
-      {this.myLocation,
-      this.loading,
-      this.markers,
-      this.gpsEnabled,
-      this.polylines,
-      this.polygons});
+      {required this.myLocation,
+      required this.loading,
+      required this.markers,
+      required this.gpsEnabled,
+      required this.polylines,
+      required this.polygons});
 
   static HomeState get initialState => new HomeState(
-        myLocation: null,
+        myLocation: LatLng(0, 0),
         loading: true,
         markers: Map(),
         polylines: Map(),
@@ -27,12 +27,12 @@ class HomeState extends Equatable {
       );
 
   HomeState copyWith(
-      {LatLng myLocation,
-      bool loading,
-      bool gpsEnabled,
-      Map<MarkerId, Marker> markers,
-      Map<PolylineId, Polyline> polylines,
-      Map<PolygonId, Polygon> polygons}) {
+      {LatLng? myLocation,
+      bool? loading,
+      bool? gpsEnabled,
+      Map<MarkerId, Marker>? markers,
+      Map<PolylineId, Polyline>? polylines,
+      Map<PolygonId, Polygon>? polygons}) {
     return HomeState(
       myLocation: myLocation ?? this.myLocation,
       loading: loading ?? this.loading,
