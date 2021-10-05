@@ -4,25 +4,23 @@ import 'dart:io' show Platform;
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps/blocs/pages/home/bloc.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' as geo;
 import 'package:google_maps/utils/extras.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_permissions/location_permissions.dart';
 import 'home_events.dart';
 import 'home_state.dart';
-import 'package:geolocator/geolocator.dart';
 
 class HomeBloc extends Bloc<HomeEvents, HomeState> {
-  Geolocator _geolocator = Geolocator();
   final LocationPermissions _locationPermissions = LocationPermissions();
   Completer<GoogleMapController> _completer = Completer();
 
   final Completer<Marker> _myPositionMarker = Completer();
-  final LocationOptions _locationOptions =
-      LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+  final geo.LocationOptions _locationOptions = geo.LocationOptions(
+      accuracy: geo.LocationAccuracy.high, distanceFilter: 10);
 
-  StreamSubscription<Position> _subscription;
-  StreamSubscription<ServiceStatus> _subscriptionGpsStatus;
+  late StreamSubscription<geo.Position> _subscription;
+  late StreamSubscription<ServiceStatus> _subscriptionGpsStatus;
 
   Polyline myRoute = Polyline(
     polylineId: PolylineId('my_route'),
@@ -40,7 +38,7 @@ class HomeBloc extends Bloc<HomeEvents, HomeState> {
     return await _completer.future;
   }
 
-  HomeBloc() {
+  HomeBloc(HomeState initState) : super(initState) {
     this._init();
   }
 
@@ -53,9 +51,10 @@ class HomeBloc extends Bloc<HomeEvents, HomeState> {
 
   _init() async {
     this._loadCarPin();
-
-    _subscription = _geolocator.getPositionStream(_locationOptions).listen(
-      (Position position) async {
+    _subscription = geo.Geolocator.getPositionStream(
+            desiredAccuracy: geo.LocationAccuracy.high, distanceFilter: 10)
+        .listen(
+      (geo.Position position) async {
         if (position != null) {
           final newPosition = LatLng(position.latitude, position.longitude);
           add(

@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeBloc _bloc = HomeBloc();
+  final HomeBloc _bloc = HomeBloc(HomeState.initialState);
   // -0.1081339,-78.4699519,18z
 
   @override
