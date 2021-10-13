@@ -84,14 +84,14 @@ class _HomePageState extends State<HomePage> {
                       },
                       myLocationButtonEnabled: false,
                       onMapCreated: (GoogleMapController controller) {
-                        this._bloc.setMapController(controller);
+                        this._bloc.mapa.setMapController(controller);
                       },
                     ),
                     Positioned(
                       bottom: 15,
                       right: 15,
                       child: FloatingActionButton(
-                        onPressed: () => _bloc.goToMyPosition(),
+                        onPressed: () => _bloc.mapa.goToMyPosition(state),
                         child: Icon(
                           Icons.gps_fixed,
                           color: Colors.black,
