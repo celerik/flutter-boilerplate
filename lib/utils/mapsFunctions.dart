@@ -48,7 +48,33 @@ class MapsFunctions {
     }
   }
 
-  loadCarPin() async {
+  Future<Map<bool, LatLng>> loadCarPin() async {
+    Map<bool, LatLng> mapaObj = {true: LatLng(0, 0)};
+    LatLng newPosition = LatLng(0, 0);
+    this.subscription = geo.Geolocator.getPositionStream(
+            desiredAccuracy: geo.LocationAccuracy.high, distanceFilter: 10)
+        .listen(
+      (geo.Position position) async {
+        if (position != null) {
+          final newPositionok = LatLng(position.latitude, position.longitude);
+          newPosition = newPositionok;
+
+          // final CameraUpdate cameraUpdate = CameraUpdate.newLatLng(newPosition);
+          // await (await _mapController).animateCamera(cameraUpdate);
+        }
+      },
+    );
+    bool gpsState = true;
+    if (Platform.isAndroid) {
+      //final bool enabled = await _geolocator.isLocationServiceEnabled();
+
+      this.subscriptionGpsStatus =
+          this.locationPermissions.serviceStatus.listen((status) {
+        gpsState = status == ServiceStatus.enabled;
+      });
+    }
+    mapaObj.addAll({gpsState: newPosition});
+
     final Uint8List bytes = await loadAsset('assets/car-pin.png', width: 40);
     final marker = Marker(
       markerId: MarkerId('my_position_marker'),
@@ -56,6 +82,7 @@ class MapsFunctions {
       anchor: Offset(0.5, 0.5),
     );
     this._myPositionMarker.complete(marker);
+    return mapaObj;
   }
 
   void setMapController(GoogleMapController controller) {

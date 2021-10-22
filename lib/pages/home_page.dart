@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
+            color: Colors.blueAccent,
             child: BlocBuilder<HomeBloc, HomeState>(
               builder: (_, state) {
                 if (!state.gpsEnabled) {

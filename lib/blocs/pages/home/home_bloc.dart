@@ -40,34 +40,8 @@ class HomeBloc extends Bloc<HomeEvents, HomeState> {
   }
 
   _init() async {
-    mapa.loadCarPin();
-    mapa.subscription = geo.Geolocator.getPositionStream(
-            desiredAccuracy: geo.LocationAccuracy.high, distanceFilter: 10)
-        .listen(
-      (geo.Position position) async {
-        if (position != null) {
-          final newPosition = LatLng(position.latitude, position.longitude);
-          add(
-            OnMyLocationUpdate(
-              newPosition,
-            ),
-          );
-
-          // final CameraUpdate cameraUpdate = CameraUpdate.newLatLng(newPosition);
-          // await (await _mapController).animateCamera(cameraUpdate);
-        }
-      },
-    );
-
-    if (Platform.isAndroid) {
-      //final bool enabled = await _geolocator.isLocationServiceEnabled();
-
-      mapa.subscriptionGpsStatus =
-          mapa.locationPermissions.serviceStatus.listen((status) {
-        add(
-          OnGpsEnabled(status == ServiceStatus.enabled),
-        );
-      });
-    }
+    var res = await mapa.loadCarPin();
+    add(OnGpsEnabled(res.keys.first));
+    add(OnMyLocationUpdate(res.values.first));
   }
 }
