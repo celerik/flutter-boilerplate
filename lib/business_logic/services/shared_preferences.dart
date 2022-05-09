@@ -1,31 +1,29 @@
-import 'package:shared_preferences/shared_preferences.dart';
+// @packages
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SharedPrefs {
-  static SharedPreferences? _sharedPrefs;
+const KEY_ID_TOKEN = 'token';
 
-  factory SharedPrefs() => SharedPrefs._internal();
+class SecureStorage {
+  final secureStorage = const FlutterSecureStorage();
 
-  SharedPrefs._internal();
-
-  Future<void> init() async {
-    _sharedPrefs ??= await SharedPreferences.getInstance();
+  Future<void> setValue(String key, String? value) async {
+    await secureStorage.write(key: key, value: value);
   }
 
-  dynamic getValueFromKey(String key) {
-    if (_sharedPrefs == null) {
-      return null;
+  Future<String> getValue(String key) async {
+    try {
+      final value = (await secureStorage.read(key: key))!;
+      return value;
+    } catch (_) {
+      return '';
     }
-    return _sharedPrefs!.get(key);
   }
 
-  Future<bool> setValueAndKey(String key, String value) {
-    if (_sharedPrefs == null) {
-      return Future.value(false);
-    }
-    return _sharedPrefs!.setString(key, value);
+  Future<void> deleteValue(String key) async {
+    await secureStorage.delete(key: key);
   }
 
-  Future<dynamic> reset() async {
-    await _sharedPrefs!.clear();
+  Future<void> deleteAll() async {
+    await secureStorage.deleteAll();
   }
 }

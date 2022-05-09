@@ -1,6 +1,6 @@
 // @packages
 import 'dart:async';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_boilerplate/generated/l10n.dart';
 

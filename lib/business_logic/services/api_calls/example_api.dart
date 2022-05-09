@@ -1,6 +1,6 @@
 // @packages
 import 'dart:convert';
-import 'package:http_interceptor/http_client_with_interceptor.dart';
+import 'package:dio/dio.dart';
 
 // @scripts
 import 'package:flutter_boilerplate/business_logic/services/models/example_api.dart';
@@ -9,13 +9,13 @@ import 'package:flutter_boilerplate/business_logic/services/models/example_api.d
 import 'package:flutter_boilerplate/business_logic/utils/constants.dart';
 
 class ExampleApi {
-  HttpClientWithInterceptor? client;
+  Dio client;
 
-  ExampleApi({this.client});
+  ExampleApi({required this.client});
 
   Future<ExampleApiModel> exampleFetch() async {
-    final response = await client!.get(Uri.parse(Constants().apiUrl));
-    final parsedData = ExampleApiModel.fromJson(json.decode(response.body));
+    final response = await client.get(Constants().apiUrl);
+    final parsedData = ExampleApiModel.fromJson(json.decode(response.data));
     return parsedData;
   }
 }
