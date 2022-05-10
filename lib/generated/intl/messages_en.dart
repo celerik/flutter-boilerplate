@@ -19,74 +19,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(error) => "${error}";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "already_account": MessageLookupByLibrary.simpleMessage(
-            "Already have an account? Login."),
-        "change_password":
-            MessageLookupByLibrary.simpleMessage("Change password"),
-        "code": MessageLookupByLibrary.simpleMessage("Code"),
-        "code_sent":
-            MessageLookupByLibrary.simpleMessage("The code was resent"),
-        "confirm_password":
-            MessageLookupByLibrary.simpleMessage("Confirm password"),
-        "description": MessageLookupByLibrary.simpleMessage("description"),
-        "do_not_have_account": MessageLookupByLibrary.simpleMessage(
-            "Do not have an account? Sign up."),
-        "email": MessageLookupByLibrary.simpleMessage("Email address"),
-        "empty_value":
-            MessageLookupByLibrary.simpleMessage("Value Cannot Be Empty"),
-        "error_api_respose": m0,
-        "fields_required": MessageLookupByLibrary.simpleMessage(
-            "You must complete all the fields"),
-        "forgot_password":
-            MessageLookupByLibrary.simpleMessage("Forgot password?"),
-        "go_second_screen":
-            MessageLookupByLibrary.simpleMessage("Go to second screen"),
-        "increment": MessageLookupByLibrary.simpleMessage("Increment"),
-        "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
-        "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
-        "login": MessageLookupByLibrary.simpleMessage("Login"),
-        "login_message":
-            MessageLookupByLibrary.simpleMessage("Flutter baseline"),
         "no_internet": MessageLookupByLibrary.simpleMessage(
-            "You do not have internet connection"),
-        "password": MessageLookupByLibrary.simpleMessage("Password"),
-        "password_changed": MessageLookupByLibrary.simpleMessage(
-            "The password was changed successfully"),
-        "password_must_be_same": MessageLookupByLibrary.simpleMessage(
-            "The passwords must be the same"),
-        "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
-        "recover_password":
-            MessageLookupByLibrary.simpleMessage("Recover password"),
-        "resend_code": MessageLookupByLibrary.simpleMessage("Resend code"),
-        "second_screen":
-            MessageLookupByLibrary.simpleMessage("Second screen view"),
-        "send": MessageLookupByLibrary.simpleMessage("send"),
-        "send_code": MessageLookupByLibrary.simpleMessage("Send code"),
-        "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
-        "sign_up_success": MessageLookupByLibrary.simpleMessage(
-            "A code verification was sent to your email"),
-        "sign_up_title":
-            MessageLookupByLibrary.simpleMessage("Flutter baseline"),
-        "skyp": MessageLookupByLibrary.simpleMessage("skyp"),
-        "terms_and_conditions":
-            MessageLookupByLibrary.simpleMessage("terms and Conditions"),
-        "title": MessageLookupByLibrary.simpleMessage("My app"),
-        "titleTodo": MessageLookupByLibrary.simpleMessage("title"),
-        "upload_photo":
-            MessageLookupByLibrary.simpleMessage("Upload a profile photo"),
-        "user_name": MessageLookupByLibrary.simpleMessage("User Name"),
-        "valid_email_regex": MessageLookupByLibrary.simpleMessage(
-            "Please enter valid email address"),
-        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
-        "verify_confirm": MessageLookupByLibrary.simpleMessage(
-            "Your email has been verified"),
-        "verify_email":
-            MessageLookupByLibrary.simpleMessage("Verify your email"),
-        "verify_text": MessageLookupByLibrary.simpleMessage(
-            "Enter the 6-digit code that was sent to your email to verify your identify")
+            "There's no internet connection"),
+        "title": MessageLookupByLibrary.simpleMessage("Camera")
       };
 }

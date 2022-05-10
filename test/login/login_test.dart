@@ -1,10 +1,10 @@
-import 'package:flutter_boilerplate/business_logic/utils/regex.dart';
+// @scripts
 import 'package:flutter_boilerplate/business_logic/utils/validators/validators.dart';
 import 'package:test/test.dart';
 
 void main() {
   test('Invalid Email Test', () {
-    var result = CustomValidators().validateEmail('');
+    final result = CustomValidators().validateEmail('');
     expect(result, false);
   });
 }

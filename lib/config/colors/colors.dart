@@ -1,5 +1,4 @@
-// @pacakges
-import 'dart:ui';
+// @packages
 import 'package:flutter/material.dart';
 
 class CustomColors {

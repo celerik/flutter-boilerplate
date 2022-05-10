@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/screens/utils/providers/ThemeProvider.dart';
+import 'package:flutter_boilerplate/screens/utils/providers/theme_provider.dart';
 
 class HeaderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = new Paint();
+    final paint = Paint();
     paint.color = ThemeProvider().secondaryColor;
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 5;
 
-    final path = new Path();
+    final path = Path();
     path.moveTo(0, 0);
     path.lineTo(0, size.height * 0.20);
     path.quadraticBezierTo(size.width * 0.25, size.height * 0.24,

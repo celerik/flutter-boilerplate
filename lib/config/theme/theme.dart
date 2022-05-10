@@ -8,8 +8,8 @@ class ThemeChanger with ChangeNotifier {
   bool _darkTheme = false;
   bool _customTheme = false;
 
-  bool get darkTheme => this._darkTheme;
-  bool get customTheme => this._customTheme;
+  bool get darkTheme => _darkTheme;
+  bool get customTheme => _customTheme;
 
   set darkTheme(bool value) {
     _customTheme = false;

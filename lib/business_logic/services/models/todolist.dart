@@ -30,22 +30,22 @@ class TodoList {
   String updatedAt;
 
   factory TodoList.fromJson(Map<String, dynamic> json) => TodoList(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        date: json["date"],
-        publishedAt: json["published_at"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        date: json['date'],
+        publishedAt: json['published_at'],
+        createdAt: json['created_at'],
+        updatedAt: json['updated_at'],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "description": description,
-        "date": date,
-        "published_at": publishedAt,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        'id': id,
+        'title': title,
+        'description': description,
+        'date': date,
+        'published_at': publishedAt,
+        'created_at': createdAt,
+        'updated_at': updatedAt,
       };
 }

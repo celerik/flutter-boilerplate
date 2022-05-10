@@ -17,7 +17,7 @@ class ConnectivityService {
       connectionStatusController.add(result);
 
       if (result == ConnectivityResult.none) {
-        showSnackBar(context, text!.no_internet, 'warning');
+        showSnackBar(context, text.no_internet, 'warning');
       }
     });
   }

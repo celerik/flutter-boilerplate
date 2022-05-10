@@ -1,8 +1,10 @@
+// @packages
 import 'package:flutter/material.dart';
 
 class Logo extends StatelessWidget {
-  final width;
-  Logo({this.width});
+  final double width;
+  const Logo({Key? key, required this.width}):super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -10,7 +12,7 @@ class Logo extends StatelessWidget {
         width: width,
         margin: EdgeInsets.only(top: 50),
         child: Column(
-          children: <Widget>[
+          children: const <Widget>[
             Image(
               image: AssetImage('assets/images/celerik.png'),
             ),
