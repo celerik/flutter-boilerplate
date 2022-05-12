@@ -1,8 +1,5 @@
-
-import 'package:flutter/material.dart';
-
-
 import 'package:argonovo/generated/l10n.dart';
+import 'package:flutter/material.dart';
 
 class CameraScreen extends StatelessWidget {
   const CameraScreen({Key? key}) : super(key: key);

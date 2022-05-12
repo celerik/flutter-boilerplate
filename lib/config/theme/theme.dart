@@ -1,3 +1,5 @@
+//ignore_for_file: prefer_mixin
+
 import 'package:argonovo/config/colors/colors.dart';
 import 'package:flutter/material.dart';
 

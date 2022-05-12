@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 extension UriMapper on String {
   Uri parseToUri() {
@@ -8,15 +6,9 @@ extension UriMapper on String {
   }
 }
 
-extension Utilities on Response {
-  Map<String, dynamic> getData() {
-    return json.decode(body)['data'];
-  }
-}
-
-extension IsOk on Response {
+extension IsOk on Response<dynamic> {
   bool get ok {
-    return (statusCode ~/ 100) == 2;
+    return (statusCode! ~/ 100) == 2;
   }
 }
 
