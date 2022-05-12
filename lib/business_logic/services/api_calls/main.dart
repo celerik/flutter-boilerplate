@@ -1,9 +1,8 @@
-// @packages
+import 'package:argonovo/business_logic/services/api_calls/example_api.dart';
+import 'package:argonovo/config/remote/http_interceptor.dart';
 import 'package:dio/dio.dart';
-
-// @scripts
-import 'package:flutter_boilerplate/business_logic/services/api_calls/example_api.dart';
-import 'package:flutter_boilerplate/business_logic/services/dio_interceptors.dart';
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 
 class ApiCall {
   ExampleApi? exampleApi;
@@ -11,7 +10,7 @@ class ApiCall {
   ApiCall() {
     final dioClient = Dio();
 
-    dioClient.interceptors.add(CustomInterceptors());
+    dioClient.interceptors.add(HttpInterceptor(logger: GetIt.I.get<Logger>()));
 
     exampleApi = ExampleApi(client: dioClient);
   }

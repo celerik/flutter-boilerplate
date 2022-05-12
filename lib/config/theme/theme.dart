@@ -1,14 +1,12 @@
-// @packages
+import 'package:argonovo/config/colors/colors.dart';
 import 'package:flutter/material.dart';
-
-// @scripts
-import 'package:flutter_boilerplate/config/colors/colors.dart';
 
 class ThemeChanger with ChangeNotifier {
   bool _darkTheme = false;
   bool _customTheme = false;
 
   bool get darkTheme => _darkTheme;
+
   bool get customTheme => _customTheme;
 
   set darkTheme(bool value) {
@@ -26,12 +24,12 @@ class ThemeChanger with ChangeNotifier {
   ThemeData get lightTheme {
     return ThemeData(
         fontFamily: 'Nunito',
-        primaryColor: CustomColors().background,
-        scaffoldBackgroundColor: CustomColors().white,
-        hintColor: CustomColors().white,
+        primaryColor: CustomColors.background,
+        scaffoldBackgroundColor: CustomColors.white,
+        hintColor: CustomColors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: CustomColors().colorBackground,
+            primary: CustomColors.colorBackground,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),

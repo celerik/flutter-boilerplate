@@ -1,4 +1,4 @@
-package com.celerik.flutter_boilerplate
+package com.celerik.argonovo
 
 import io.flutter.embedding.android.FlutterActivity
 

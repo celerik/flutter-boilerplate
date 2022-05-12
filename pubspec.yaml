@@ -1,5 +1,5 @@
-name: flutter_boilerplate
-description: Celerik flutter boilerplate
+name: argonovo
+description: app to capture images and videos with metadata
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -28,11 +28,23 @@ dependencies:
 
   cupertino_icons: ^1.0.4
   connectivity_plus: ^2.3.0
+  equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   dio: ^4.0.6
+  http_interceptor: ^1.0.2
+  intl: ^0.17.0
   flutter_dotenv: ^5.0.2
   flutter_native_splash: ^2.1.6
   flutter_secure_storage: ^5.0.2
+  device_preview: ^1.0.0
+  logger: ^1.1.0
+  get_it: ^7.2.0
+  http_status_code: ^0.0.2
+  loader_overlay: ^2.0.5+1
+  json_serializable: ^6.1.5
+  json_annotation: ^4.5.0
+  auto_size_text: ^3.0.0
+  flutter_svg: ^1.0.3
 
 flutter_native_splash:
   color: '#0F142B'
@@ -41,10 +53,12 @@ flutter_native_splash:
   android: true
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.9.2"
   flutter_test:
     sdk: flutter
-  test:
+  flutter_launcher_icons: ^0.9.2
+  build_runner: ^2.1.8
+  flutter_lints: ^1.0.4
+  bloc_test: ^9.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

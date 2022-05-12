@@ -1,28 +1,21 @@
-// @packages
 import 'package:flutter/material.dart';
 
 class CustomColors {
-  final Color _white = const Color(0xffffffff);
-  final Color _black = Colors.black;
-  final Color _background = Colors.white;
-  final Color _colorBackground = const Color(0xffEF5D22);
-  final Color _error = Colors.red;
-  final Color _success = const Color(0xff68D194);
-  final Color _inputBackground = Colors.white;
-  final Color _inputBorder = const Color(0xff2D3643);
-  final Color _inputLabel = const Color(0xff5B6571);
-  final Color _appBar = const Color(0xff565D6B);
-  final Color _warning = Colors.amberAccent;
+  static const Color white = Color(0xffffffff);
+  static const Color black = Colors.black;
 
-  Color get black => _black;
-  Color get success => _success;
-  Color get appBar => _appBar;
-  Color get inputBackground => _inputBackground;
-  Color get inputBorder => _inputBorder;
-  Color get inputLabel => _inputLabel;
-  Color get error => _error;
-  Color get white => _white;
-  Color get background => _background;
-  Color get colorBackground => _colorBackground;
-  Color get warning => _warning;
+  static const Color background = Colors.white;
+  static const Color colorBackground = Color(0xffEF5D22);
+
+  static const Color appBar = Color(0xff565D6B);
+
+  // Text input fields colors
+  static const Color inputBackground = Colors.white;
+  static const Color inputBorder = Color(0xff2D3643);
+  static const Color inputLabel = Color(0xff5B6571);
+
+  // SnackBar colors
+  static const Color successSnackBar = Color(0xff68D194);
+  static const Color warningSnackBar = Colors.amberAccent;
+  static const Color errorSnackBar = Colors.red;
 }
